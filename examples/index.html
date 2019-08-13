@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+   <title>Prueba con lobatón</title>
+   <meta charset="UTF-8">
+
+   <!-- Leaflet -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" crossorigin=""
+         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==">
+   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" crossorigin=""
+           integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="></script>
+
+   <!-- Plugin: Agrupa marcas contiguas -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+   <!-- Plugin: Menú contextual -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.min.css">
+   <script src="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.min.js"></script>
+
+   <!-- Plugin: Búsqueda -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet-search@2.9.8/dist/leaflet-search.min.css">
+   <link rel="alternate stylesheet" href="https://unpkg.com/leaflet-search@2.9.8/dist/leaflet-search.mobile.min.css">
+   <script src="https://unpkg.com/leaflet-search@2.9.8/dist/leaflet-search.src.js"></script>
+   <!-- Fuse.js: Fuzzy-search -->
+   <script src="https://unpkg.com/fuse.js"></script>
+
+   <!-- Plugin: mutatismutandis -->
+   <script src="https://unpkg.com/leaflet.mutatismutandis"></script>
+
+   <!-- Lobaton-core -->
+   <script src="../dist/core.js"></script>
+
+   <!-- Bootstrap 4 CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap4c-custom-switch@1.1.2/dist/css/component-custom-switch.min.css">
+
+   <!-- turf (polígonos): para isocronas -->
+   <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+
+   <!-- Scripts/CSS oara este ejemplo -->
+   <link rel="stylesheet" href="index.css">
+   <script src="index.js"></script>
+
+   <!-- Body -->
+
+   <!-- Aquí se inserta el mapa -->
+   <div id="map"></div>
+
+   <!-- Bootstrap 4 Native (sin JQuery) -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap.native@2.0.26/dist/bootstrap-native-v4.min.js"></script>
+
+   <!-- Plantilla para correcciones -->
+   <template id="controlbar">
+      <h3>Control de correcciones</h3>
+      <template>
+         <form class="section-cardbox-content my-2 mx-3">
+            <fieldset class="form-group">
+               <legend>Título de la sección</legend>
+            </fieldset>
+            <template>
+               <div class="form-group row">
+                  <label for="X" class="col-form label col-10"></label>
+                  <div class="custom-switch custom-switch-xs pl-0 col-2">
+                     <input type="checkbox" name="X" id="X" class="custom-switch-input" value="">
+                     <label for="X" class="custom-switch-btn"></label>
+                  </div>
+               </div>
+            </template>
+         </form>
+      </template>
+   </template>
+
+
+   <!-- Plantilla para filtros -->
+   <template id="filterbar">
+      <h3>Control de filtros</h3>
+      <form class="section-cardbox-content my-2 mx-3">
+         <template>
+            <div class="form-group row">
+               <label for="X" class="col-form label col-10"></label>
+               <div class="custom-switch custom-switch-xs pl-0 col-2">
+                  <input type="checkbox" name="X" id="X" class="custom-switch-input" value="">
+                  <label for="X" class="custom-switch-btn"></label>
+               </div>
+            </div>
+         </template>
+      </form>
+   </template>
+</html>

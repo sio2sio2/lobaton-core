@@ -1,12 +1,13 @@
 {
-  "name": "lobaton",
+  "name": "@lobaton/core",
   "author": "José Miguel Sánchez Alés <sio2sio2+github@gmail.com>",
   "version": "0.1.0",
-  "main": "dist/lobaton.js",
+  "main": "dist/core.js",
   "scripts": {
-    "build": "webpack --env.production",
-    "watch": "webpack --env --watch",
-    "debug": "webpack-dev-server --env"
+    "build": "webpack --env.output=min --progress",
+    "build:bundle": "webpack --env.output=bundle --progress",
+    "build:src": "webpack --env.output=src --progress",
+    "debug": "webpack-dev-server --env.output=debug --progress"
   },
   "license": "MIT",
   "keywords": [
@@ -34,30 +35,40 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sio2sio2/lobaton.git"
+    "url": "git+https://github.com/sio2sio2/lobaton-core.git"
   },
-  "homepage": "https://github.com/sio2sio2/lobaton#readme",
+  "homepage": "https://github.com/sio2sio2/lobaton-core#readme",
   "bugs": {
-    "url": "https://github.com/sio2sio2/lobaton/issues"
+    "url": "https://github.com/sio2sio2/lobaton-core/issues"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@turf/boolean-point-in-polygon": "^6.0.1",
+    "@turf/difference": "^6.0.2",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
+    "extract-loader": "^3.1.0",
     "file-loader": "^4.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "regenerator-runtime": "^0.13.3",
     "url-loader": "^2.1.0",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2",
-    "webpack-merge": "^4.2.1"
+    "webpack-dev-server": "^3.8.0",
+    "webpack-merge": "^4.2.1",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.2.0"
   },
   "dependencies": {
-    "core-js": "^3.1.4",
-    "leaflet": "^1.5.1"
+    "core-js": "^3.2.0",
+    "fuse.js": "^3.4.5",
+    "leaflet": "^1.5.1",
+    "leaflet-contextmenu": "^1.4.0",
+    "leaflet-search": "^2.9.8",
+    "leaflet.markercluster": "^1.4.1",
+    "leaflet.mutatismutandis": "^0.1.3"
   }
 }
