@@ -2,7 +2,6 @@ const webpack = require("webpack"),
       merge = require("webpack-merge"),
       path = require("path"),
       MiniCssExtractPlugin = require("mini-css-extract-plugin"),
-      CopyPlugin = require('copy-webpack-plugin'),
       name = require("./package.json").name.split("/").pop();
 
 
@@ -61,36 +60,16 @@ function confNoDeps() {
             commonjs: "turf",
             commonjs2: "turf"
          },
-         "leaflet-search": "search",
-         "leaflet.markercluster": "cluster",
-         "leaflet-contextmenu": "contextmenu",
-         "leaflet.mutatismutandis": "mutatis",
          Fuse: {
             root: "Fuse",
             amd: "Fuse",
             commonjs: "Fuse",
             commonjs2: "Fuse"
-         }
-         /*
-         "leaflet-search": {
-            root: "seach",
-            amd: "search",
-            commonjs: "search",
-            comonjs2: "search"
          },
-         "leaflet.markercluster": {
-            root: "markercluster",
-            amd: "markercluster",
-            commonjs: "markercluster",
-            commonjs2: "markercluster"
-         },
-         "leaflet.mutatismutandis": {
-            root: "mutatis",
-            amd: "mutatis",
-            commonjs: "mutatis",
-            commonjs2: "mutatis"
-         },
-         */
+         "leaflet-search": "search",
+         "leaflet.markercluster": "cluster",
+         "leaflet-contextmenu": "contextmenu",
+         "leaflet.mutatismutandis": "mutatis"
       },
       output: {
          libraryTarget: "umd",
@@ -120,15 +99,11 @@ function confDev(filename) {
 function confDebug() {
    return {
       devServer: {
-         contentBase: false,
-         open: "chromium",
-         //openPage: "index.html"
-      },
-      plugins: [
-         new CopyPlugin([
-            {from: "examples", to: ".", ignore: ["*.swp"] }
-         ])
-      ]
+         contentBase: path.resolve(__dirname, "examples"),
+         publicPath: "/dist/",
+         watchContentBase: true,
+         open: "chromium"
+      }
    }
 }
 
@@ -144,10 +119,8 @@ module.exports = env => {
 
    switch(env.output) {
       case "min":
-         filename = "[name].js";
-         break;
       case "debug":
-         filename = "dist/[name].js";
+         filename = "[name].js";
          break;
       case "src":
          filename = "[name]-src.js";

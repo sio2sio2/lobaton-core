@@ -1,5 +1,6 @@
 {
   "name": "@lobaton/core",
+  "description": "Núcleo que implementa un mapa de adjudicaciones y oferta para centros educativos",
   "author": "José Miguel Sánchez Alés <sio2sio2+github@gmail.com>",
   "version": "0.1.0",
   "main": "dist/core.js",

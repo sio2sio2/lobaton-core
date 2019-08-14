@@ -143,21 +143,23 @@ const scriptPath = document.currentScript;
 
 /**
  * Obtiene la ruta absoluta de un recurso cuya ruta relativa
- * se proporcionó respecto a la ruta absoluta de otro. Se
- * sobreentiende que se proporciona el recurso y no el directorio
- * que contiene el recurso. O sea, http://example.com/index.html
- * y no http://example.com
+ * se proporcionó respecto a la ruta absoluta de otro. 
  *
  * @param {String} resource  Ruta relativa de otro recurso
  *    respecto al primero
  * @param {String} script    Ruta absoluta de un recurso. Si
- * no se especifica es la ruta de este mismo script.
+ *    se proporciona como recurso un directorio, la ruta debe
+ *    acabar con "/". Si no se especifica es la ruta de este
+ *    mismo script.
  *
  * @returns {String} Ruta absoluta del segundo recurso.
  */
 function getPath(resource, script) {
    script = script || scriptPath.src;
-   script = script.slice(0, script.lastIndexOf("/"));
+   if(!script.endsWith("/")) {
+      script = script.slice(0, script.lastIndexOf("/") + 1);
+   }
+   console.log("DEBUG", script, resource, url.resolve(script, resource));
    return url.resolve(script, resource);
 }
 

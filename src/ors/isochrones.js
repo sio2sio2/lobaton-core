@@ -1,4 +1,5 @@
-import {addDescriptor} from "app/utils/misc.js"
+import {addDescriptor, rgb2hex, HSLtoRGB} from "app/utils/misc.js";
+import {mismoPunto, failback} from "./utils.js";
 
 function Isocronas(ORS, opts) {
    const defaults = {
@@ -8,13 +9,14 @@ function Isocronas(ORS, opts) {
       range: 3600,
       location_type: "start",
       intersections: false,
-      // Para la interrupción del cálculo de las
-      // isocronas. cuando se demora mucho su cálculo.
-      isocronas: {
-         interval: 200,
-         delay: 50
-      }
-   };
+   }
+
+   // Para la interrupción del cálculo de las
+   // isocronas. cuando se demora mucho su cálculo.
+   this.progress = {
+      interval: 200,
+      delay: 50
+   }
 
    try {
       turf
@@ -105,7 +107,7 @@ Isocronas.prototype.create = async function(point) {
             });
          },
          failback: xhr => { 
-            failback();
+            failback(xhr);
             this.ORS.espera.remove("isocronas");
             resolve(undefined);
          }
@@ -134,7 +136,7 @@ async function crearIsocronas(xhr, point) {
 
             // Al superar el intervalo, rompemos el bucle y
             // liberamos la ejecución por un breve periodo.
-            if(this.ORS.ors.chunkProgress && lapso > this.options.isocronas.interval) break;
+            if(this.ORS.ors.chunkProgress && lapso > this.progress.interval) break;
 
             const anillo = i>0?turf.difference(data.features[i], data.features[i-1]):
                            Object.assign({}, data.features[0]);
@@ -161,7 +163,7 @@ async function crearIsocronas(xhr, point) {
             this.areas = this.calc.areas = this.layer.getLayers();
             resolve();
          }
-         else setTimeout(process, this.options.isocronas.delay);
+         else setTimeout(process, this.progress.delay);
       }
       process();
    });

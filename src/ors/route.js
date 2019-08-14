@@ -1,4 +1,5 @@
 import {addDescriptor} from "app/utils/misc.js";
+import {mismoPunto} from "./utils.js";
 
 function Ruta(ORS, opts) {
    const defaults = {
@@ -42,7 +43,7 @@ Ruta.prototype.create = async function(destino) {
          return;
       }
 
-      if(mismoPunto(adjofer.origen, this.calc.origen) &&
+      if(mismoPunto(this.ORS.adjofer.origen, this.calc.origen) &&
          mismoPunto(destino, this.calc.destino)) {
 
          dibujarRuta.call(this);
@@ -57,9 +58,9 @@ Ruta.prototype.create = async function(destino) {
       this.ORS.espera.push("rutas");
 
       this.value = this.calc.destino = this.calc.layer = null;
-      this.calc.origen = adjofer.origen;
+      this.calc.origen = this.ORS.adjofer.origen;
 
-      const origen = adjofer.origen.getLatLng(),
+      const origen = this.ORS.adjofer.origen.getLatLng(),
             fin    = destino.getLatLng(),
             params = Object.assign({
                         start: origen.lng + "," + origen.lat,
@@ -93,7 +94,7 @@ function crearRuta(xhr, destino) {
 
    const data = JSON.parse(xhr.responseText);
    this.calc.destino = destino;
-   this.calc.origen = adjofer.origen;
+   this.calc.origen = this.ORS.adjofer.origen;
    this.value = {destino: destino};
 
    this.calc.layer = this.value.layer = dibujarRuta.call(this, data);
@@ -115,7 +116,7 @@ function dibujarRuta(ruta) {
       layer = this.layer.getLayers()[0];
    }
 
-   this.layer.addTo(adjofer.map);
+   this.layer.addTo(this.ORS.adjofer.map);
 
    const coords = ruta.geometry.coordinates,
          point  = coords[Math.floor(.9*coords.length)];
@@ -128,7 +129,7 @@ Ruta.prototype.remove = function() {
    if(!this.value) return false;
 
    this.layer.clearLayers();
-   this.layer.removeFrom(adjofer.map);
+   this.layer.removeFrom(this.ORS.adjofer.map);
    this.value = false;
    return this;
 }

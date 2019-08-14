@@ -57,14 +57,14 @@ Geocode.prototype.query = async function(data) {
             const response = JSON.parse(xhr.responseText),
                   parser = typeof data === "string"?obtenerCoordenadas:obtenerDireccion;
             this.value = parser(response, data);
-            this,ORS.espera.remove("geocode");
+            this.ORS.espera.remove("geocode");
             resolve(true);
          },
          failback: xhr => {
             if(this.ORS.ors.loading) this.ORS.ors.loading("geocode");
             failback(xhr);
             this.value = JSON.parse(xhr.responseText).error;
-            this,ORS.espera.remove("geocode");
+            this.ORS.espera.remove("geocode");
             resolve(undefined);
          }
       });

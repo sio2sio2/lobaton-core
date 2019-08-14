@@ -1,5 +1,5 @@
 import popupRuta from "app/interface/popupruta.js";
-import loading from "app/interface/popupruta.js";
+import loading from "app/interface/loading.js";
 import Isocronas from "./isochrones.js";
 import Geocode from "./geocode.js";
 import Ruta from "./route.js";
