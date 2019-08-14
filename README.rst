@@ -83,7 +83,7 @@ disponemos de tres sabores distintos:
      <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 
      <!-- Lobatón Core -->
-     <link rel="stylesheet" href="https://unpkg.com/@lobaton/core/dist/core.css">
+     <link rel="stylesheet" href="https://unpkg.com/@lobaton/css/core/dist/core.css">
      <script src="https://unpkg.com/@lobaton/core"></script>
 
 * ``core-src.js``, que es la versión de desarrollo de la librería y es
@@ -94,7 +94,7 @@ disponemos de tres sabores distintos:
   .. code-block:: html
 
      <!-- Lobatón Core -->
-     <link rel="stylesheet" href="https://unpkg.com/@lobaton/core/dist/core.css">
+     <link rel="stylesheet" href="https://unpkg.com/@lobaton/core/dist/css/core-src.css">
      <script src="https://unpkg.com/@lobaton/core/dist/core-src.js"></script>
 
 * ``core.bundle.js``, que incluye todas las dependencias y es la versión
@@ -103,7 +103,7 @@ disponemos de tres sabores distintos:
   .. code-block:: html
 
      <!-- Lobatón Core -->
-     <link rel="stylesheet" href="https://unpkg.com/@lobaton/core/dist/core.bundle.css">
+     <link rel="stylesheet" href="https://unpkg.com/@lobaton/core/dist/css/core.bundle.css">
      <script src="https://unpkg.com/@lobaton/core/dist/core.bundle.js"></script>
 
 .. _Leaflet: https://leafletjs.com

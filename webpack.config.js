@@ -102,7 +102,7 @@ function confDev(filename) {
       devtool: false,
       plugins: [
          new webpack.SourceMapDevToolPlugin({
-            filename: `${filename}.map`
+            filename: `${filename}.js.map`
          })
       ]
    }
@@ -123,6 +123,8 @@ function confDebug() {
 }
 
 module.exports = env => {
+   let mode, filename;
+
    switch(env.output) {
       case "debug":
       case "src":
@@ -135,13 +137,13 @@ module.exports = env => {
    switch(env.output) {
       case "min":
       case "debug":
-         filename = "[name].js";
+         filename = "[name]";
          break;
       case "src":
-         filename = "[name]-src.js";
+         filename = "[name]-src";
          break
       default:
-         filename = `[name].${env.output}.js`;
+         filename = `[name].${env.output}`;
    }
 
    const common = {
@@ -155,7 +157,7 @@ module.exports = env => {
          }
       },
       output: {
-         filename: filename,
+         filename: `${filename}.js`,
          libraryTarget: "umd",
          umdNamedDefine: true,
          library: "lobaton",
@@ -211,7 +213,7 @@ module.exports = env => {
             "L.Marker.Mutable": "leaflet.mutatismutandis"
          }),
          new MiniCssExtractPlugin({
-            filename: env.output === "bundle"?"css/[name].bundle.css":"css/[name].css",
+            filename: `css/${filename}.css`,
             chunkFilename: "[id].css"
          })
       ]
