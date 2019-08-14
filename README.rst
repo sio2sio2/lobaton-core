@@ -29,7 +29,7 @@ La librería define un objeto que posibilita:
     usarlas como criterio de filtro.
 
 Un ejemplo con una interfaz muy simple de aplicación, que permite manipular
-mínimamente los datos del mapa es `éste <https://sio2sio2.github.io/examples>`.
+mínimamente los datos del mapa es `éste <https://sio2sio2.github.io/examples>`_.
 
 Instalación
 ***********
@@ -50,7 +50,7 @@ Si nuestra intención es usar la librería directamente en el **navegador**,
 disponemos de tres sabores distintos:
 
 * ``core.js`` que contiene la versión minimizada de la librería sin
-  dependencias, por lo que exige hacer referencia a todas ellas en el |HTML|:
+  dependencias, por lo que exige hacer referencia a todas ellas en el *HTML*:
 
   .. code-block:: html
 
@@ -113,3 +113,4 @@ disponemos de tres sabores distintos:
 .. _AngularJS: https://angularjs.org/
 .. _VueJS: https://vuejs.org/
 .. _Leaflet.MarkerCluster: https://github.com/Leaflet/Leaflet.markercluster
+.. _NodeJS: https://nodejs.org
