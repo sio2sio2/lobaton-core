@@ -37,7 +37,7 @@ function load() {
     * @memberof MapaAdjOfer.prototype
     * @type {L.MarkerClusterGroup}
     */
-   this.cluster = L.markerClusterGroup({
+   this.cluster = new L.MarkerClusterGroup({
       showCoverageOnHover: false,
       // Al llegar a este nivel de zoom se ven todas las marcas.
       disableClusteringAtZoom: this.options.unclusterZoom,

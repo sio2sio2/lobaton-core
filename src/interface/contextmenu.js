@@ -2,6 +2,10 @@ import {getPath} from "app/utils/misc.js";
 import "./images/zoom-in.png";
 import "./images/zoom-out.png";
 
+// Para asegurarnos de que ProvidePlugin (webpack)
+// cargará el código.
+L.Map.ContextMenu;
+
 /**
 * Define el menú contextual del mapa.
 * @this {MapAdjOfer}  El objeto del mapa de adjudicaciones.

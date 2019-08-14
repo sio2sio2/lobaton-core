@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("leaflet"));
+		module.exports = factory(require("leaflet"), require("leaflet-contextmenu"), require("leaflet-search"), require("leaflet.Markercluster"), require("leaflet.mutatismutandis"));
 	else if(typeof define === 'function' && define.amd)
-		define("lobaton", ["leaflet"], factory);
+		define("lobaton", ["leaflet", "leaflet-contextmenu", "leaflet-search", "leaflet.Markercluster", "leaflet.mutatismutandis"], factory);
 	else if(typeof exports === 'object')
-		exports["lobaton"] = factory(require("leaflet"));
+		exports["lobaton"] = factory(require("leaflet"), require("leaflet-contextmenu"), require("leaflet-search"), require("leaflet.Markercluster"), require("leaflet.mutatismutandisx"));
 	else
-		root["lobaton"] = factory(root["L"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_leaflet__) {
+		root["lobaton"] = factory(root["L"], root["L"]["Map"]["ContextMenu"], root["L"]["Control"]["Search"], root["L"], root["L"]["Marker"]["Mutable"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE_leaflet__, __WEBPACK_EXTERNAL_MODULE_leaflet_contextmenu__, __WEBPACK_EXTERNAL_MODULE_leaflet_search__, __WEBPACK_EXTERNAL_MODULE_leaflet_markercluster__, __WEBPACK_EXTERNAL_MODULE_leaflet_mutatismutandis__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -6193,7 +6193,7 @@ const MapAdjOfer = L.Evented.extend({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* WEBPACK VAR INJECTION */(function(L, __webpack_provided_L_dot_MarkerClusterGroup) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
 /* harmony import */ var app_interface_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/interface/index.js */ "./src/interface/index.js");
 /* harmony import */ var app_ors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/ors */ "./src/ors/index.js");
 
@@ -6235,7 +6235,7 @@ function load() {
     * @memberof MapaAdjOfer.prototype
     * @type {L.MarkerClusterGroup}
     */
-   this.cluster = L.markerClusterGroup({
+   this.cluster = new __webpack_provided_L_dot_MarkerClusterGroup({
       showCoverageOnHover: false,
       // Al llegar a este nivel de zoom se ven todas las marcas.
       disableClusteringAtZoom: this.options.unclusterZoom,
@@ -6467,7 +6467,7 @@ function load() {
 
 /* harmony default export */ __webpack_exports__["default"] = (load);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! leaflet.markercluster */ "leaflet.markercluster")["MarkerClusterGroup"]))
 
 /***/ }),
 
@@ -7486,7 +7486,7 @@ const url = Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__["getPath"])("i
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Marker_dot_Mutable) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
 /* harmony import */ var _corrections_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./corrections.js */ "./src/centro/corrections.js");
 /* harmony import */ var _filters_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filters.js */ "./src/centro/filters.js");
 /* harmony import */ var _icons_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./icons/index.js */ "./src/centro/icons/index.js");
@@ -7508,7 +7508,7 @@ function create() {
    * @memberof MapAdjOfer.prototype
    * @type {Marker}
    */
-   this.Centro = L.Marker.Mutable.extend({
+   this.Centro = __webpack_provided_L_dot_Marker_dot_Mutable.extend({
       statics: {
          /**
           * Obtiene la marca de un centro a partir de su código.
@@ -7534,7 +7534,7 @@ function create() {
 
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -7563,7 +7563,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "map", function() { return map; });
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Map_dot_ContextMenu) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "map", function() { return map; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "origen", function() { return origen; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "centro", function() { return centro; });
 /* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
@@ -7574,6 +7574,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+// Para asegurarnos de que ProvidePlugin (webpack)
+// cargará el código.
+__webpack_provided_L_dot_Map_dot_ContextMenu;
 
 /**
 * Define el menú contextual del mapa.
@@ -7700,6 +7704,7 @@ function centro(marker) {
 
 
 
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet-contextmenu */ "leaflet-contextmenu")))
 
 /***/ }),
 
@@ -7908,12 +7913,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L, Fuse) {// Issue #51
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Control_dot_Search, Fuse) {// Issue #51
 function searchBar() {
    // CodidoProvincial: Nombre del instituto
    const label = (d) => `${String(d.id.cp).substring(0,2)}: ${d.id.nom}`;
 
-   const control = new L.Control.Search({
+   const control = new __webpack_provided_L_dot_Control_dot_Search({
       position: "topright",
       textPlaceholder: "Busque por nombre",
       textErr: "No encontrado",
@@ -7970,7 +7975,7 @@ function searchBar() {
 
 /* harmony default export */ __webpack_exports__["default"] = (searchBar);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! fuse.js */ "./node_modules/fuse.js/dist/fuse.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet-search */ "leaflet-search"), __webpack_require__(/*! fuse.js */ "./node_modules/fuse.js/dist/fuse.js")))
 
 /***/ }),
 
@@ -8047,7 +8052,7 @@ module.exports = __webpack_require__.p + "images/localidad.svg";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var _icon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon.js */ "./src/localidad/icon.js");
+/* WEBPACK VAR INJECTION */(function(L, __webpack_provided_L_dot_Marker_dot_Mutable) {/* harmony import */ var _icon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon.js */ "./src/localidad/icon.js");
 
 
 // Issue #79, #83
@@ -8092,7 +8097,7 @@ function create() {
     * @memberof MadAdjOfer.prototype
     * @type {Marker}
     */
-   this.Localidad = L.Marker.Mutable.extend({
+   this.Localidad = __webpack_provided_L_dot_Marker_dot_Mutable.extend({
       statics: {
          get: function(cod) {
             if(typeof cod === "string" && cod.endsWith("L")) cod = cod.slice(0, -1);
@@ -8165,7 +8170,7 @@ function create() {
 
 /* harmony default export */ __webpack_exports__["default"] = (create);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -8238,14 +8243,14 @@ Geocode.prototype.query = async function(data) {
             const response = JSON.parse(xhr.responseText),
                   parser = typeof data === "string"?obtenerCoordenadas:obtenerDireccion;
             this.value = parser(response, data);
-            this,ORS.espera.remove("geocode");
+            this.ORS.espera.remove("geocode");
             resolve(true);
          },
          failback: xhr => {
             if(this.ORS.ors.loading) this.ORS.ors.loading("geocode");
             failback(xhr);
             this.value = JSON.parse(xhr.responseText).error;
-            this,ORS.espera.remove("geocode");
+            this.ORS.espera.remove("geocode");
             resolve(undefined);
          }
       });
@@ -8283,9 +8288,10 @@ function obtenerCoordenadas(data, search) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_interface_popupruta_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/interface/popupruta.js */ "./src/interface/popupruta.js");
-/* harmony import */ var _isochrones_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isochrones.js */ "./src/ors/isochrones.js");
-/* harmony import */ var _geocode_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./geocode.js */ "./src/ors/geocode.js");
-/* harmony import */ var _route_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./route.js */ "./src/ors/route.js");
+/* harmony import */ var app_interface_loading_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/interface/loading.js */ "./src/interface/loading.js");
+/* harmony import */ var _isochrones_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./isochrones.js */ "./src/ors/isochrones.js");
+/* harmony import */ var _geocode_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./geocode.js */ "./src/ors/geocode.js");
+/* harmony import */ var _route_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./route.js */ "./src/ors/route.js");
 
 
 
@@ -8315,17 +8321,17 @@ function ORS(adjofer) {
    this.ors = Object.assign({}, defaults, adjofer.options.ors);
    Object.assign(this.ors, {
       chunkProgress: this.ors.chunkProgress && adjofer.progressBar,
-      loading: this.ors.loading || adjofer.options.loading && app_interface_popupruta_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+      loading: this.ors.loading || adjofer.options.loading && app_interface_loading_js__WEBPACK_IMPORTED_MODULE_1__["default"],
       rutaPopup: this.ors.rutaPopup && app_interface_popupruta_js__WEBPACK_IMPORTED_MODULE_0__["default"]
    });
 
-   this.isocronas = new _isochrones_js__WEBPACK_IMPORTED_MODULE_1__["default"](this);
+   this.isocronas = new _isochrones_js__WEBPACK_IMPORTED_MODULE_2__["default"](this);
    // Colocamos las isocronas por debajo de 400, para que siempre
    // queden por debajo de otros polígonos y segmentos (como las rutas).
    adjofer.map.createPane("isochronePane").style.zIndex = 390;
 
-   this.ruta = new _route_js__WEBPACK_IMPORTED_MODULE_3__["default"](this);
-   this.geocode = new _geocode_js__WEBPACK_IMPORTED_MODULE_2__["default"](this);
+   this.ruta = new _route_js__WEBPACK_IMPORTED_MODULE_4__["default"](this);
+   this.geocode = new _geocode_js__WEBPACK_IMPORTED_MODULE_3__["default"](this);
 
 }
 
@@ -8344,6 +8350,8 @@ function ORS(adjofer) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(turf, L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./src/ors/utils.js");
+
 
 
 function Isocronas(ORS, opts) {
@@ -8354,13 +8362,14 @@ function Isocronas(ORS, opts) {
       range: 3600,
       location_type: "start",
       intersections: false,
-      // Para la interrupción del cálculo de las
-      // isocronas. cuando se demora mucho su cálculo.
-      isocronas: {
-         interval: 200,
-         delay: 50
-      }
-   };
+   }
+
+   // Para la interrupción del cálculo de las
+   // isocronas. cuando se demora mucho su cálculo.
+   this.progress = {
+      interval: 200,
+      delay: 50
+   }
 
    try {
       turf
@@ -8376,7 +8385,7 @@ function Isocronas(ORS, opts) {
 
    this.layer = L.geoJSON(undefined, {
       style: f => new Object({
-                     color: rgb2hex(HSLtoRGB(f.properties.ratio, .75, .30)),
+                     color: Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__["rgb2hex"])(Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__["HSLtoRGB"])(f.properties.ratio, .75, .30)),
                      opacity: 0.6
                   }),
       onEachFeature: (f, l) => {
@@ -8421,7 +8430,7 @@ Isocronas.prototype.create = async function(point) {
       this.ORS.espera.push("isocronas");
 
       // Si repetimos origen, entonces rescatamos las isocronas calculadas.
-      if(mismoPunto(point, this.calc.origen)) {
+      if(Object(_utils_js__WEBPACK_IMPORTED_MODULE_1__["mismoPunto"])(point, this.calc.origen)) {
          if(!this.areas) {  // Se llegaron a borrar.
             redibujarAnillos.call(this);
             this.layer.addTo(this.ORS.adjofer.map);
@@ -8451,7 +8460,7 @@ Isocronas.prototype.create = async function(point) {
             });
          },
          failback: xhr => { 
-            failback();
+            Object(_utils_js__WEBPACK_IMPORTED_MODULE_1__["failback"])(xhr);
             this.ORS.espera.remove("isocronas");
             resolve(undefined);
          }
@@ -8480,7 +8489,7 @@ async function crearIsocronas(xhr, point) {
 
             // Al superar el intervalo, rompemos el bucle y
             // liberamos la ejecución por un breve periodo.
-            if(this.ORS.ors.chunkProgress && lapso > this.options.isocronas.interval) break;
+            if(this.ORS.ors.chunkProgress && lapso > this.progress.interval) break;
 
             const anillo = i>0?turf.difference(data.features[i], data.features[i-1]):
                            Object.assign({}, data.features[0]);
@@ -8507,7 +8516,7 @@ async function crearIsocronas(xhr, point) {
             this.areas = this.calc.areas = this.layer.getLayers();
             resolve();
          }
-         else setTimeout(process, this.options.isocronas.delay);
+         else setTimeout(process, this.progress.delay);
       }
       process();
    });
@@ -8614,6 +8623,8 @@ Isocronas.prototype.get = function(maciza) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./src/ors/utils.js");
+
 
 
 function Ruta(ORS, opts) {
@@ -8658,8 +8669,8 @@ Ruta.prototype.create = async function(destino) {
          return;
       }
 
-      if(mismoPunto(adjofer.origen, this.calc.origen) &&
-         mismoPunto(destino, this.calc.destino)) {
+      if(Object(_utils_js__WEBPACK_IMPORTED_MODULE_1__["mismoPunto"])(this.ORS.adjofer.origen, this.calc.origen) &&
+         Object(_utils_js__WEBPACK_IMPORTED_MODULE_1__["mismoPunto"])(destino, this.calc.destino)) {
 
          dibujarRuta.call(this);
          this.value = {
@@ -8673,9 +8684,9 @@ Ruta.prototype.create = async function(destino) {
       this.ORS.espera.push("rutas");
 
       this.value = this.calc.destino = this.calc.layer = null;
-      this.calc.origen = adjofer.origen;
+      this.calc.origen = this.ORS.adjofer.origen;
 
-      const origen = adjofer.origen.getLatLng(),
+      const origen = this.ORS.adjofer.origen.getLatLng(),
             fin    = destino.getLatLng(),
             params = Object.assign({
                         start: origen.lng + "," + origen.lat,
@@ -8709,7 +8720,7 @@ function crearRuta(xhr, destino) {
 
    const data = JSON.parse(xhr.responseText);
    this.calc.destino = destino;
-   this.calc.origen = adjofer.origen;
+   this.calc.origen = this.ORS.adjofer.origen;
    this.value = {destino: destino};
 
    this.calc.layer = this.value.layer = dibujarRuta.call(this, data);
@@ -8731,7 +8742,7 @@ function dibujarRuta(ruta) {
       layer = this.layer.getLayers()[0];
    }
 
-   this.layer.addTo(adjofer.map);
+   this.layer.addTo(this.ORS.adjofer.map);
 
    const coords = ruta.geometry.coordinates,
          point  = coords[Math.floor(.9*coords.length)];
@@ -8744,7 +8755,7 @@ Ruta.prototype.remove = function() {
    if(!this.value) return false;
 
    this.layer.clearLayers();
-   this.layer.removeFrom(adjofer.map);
+   this.layer.removeFrom(this.ORS.adjofer.map);
    this.value = false;
    return this;
 }
@@ -8753,6 +8764,34 @@ Ruta.prototype.remove = function() {
 /* harmony default export */ __webpack_exports__["default"] = (Ruta);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+
+/***/ }),
+
+/***/ "./src/ors/utils.js":
+/*!**************************!*\
+  !*** ./src/ors/utils.js ***!
+  \**************************/
+/*! exports provided: failback, mismoPunto */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "failback", function() { return failback; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mismoPunto", function() { return mismoPunto; });
+function failback(xhr) {
+   const response = JSON.parse(xhr.responseText);
+   console.error("Error " + response.error.code + ": " + response.error.message);
+}
+
+function mismoPunto(x, y) {
+   if(x === null || y === null) return false;
+   if(x.getLatLng) x = x.getLatLng();
+   if(y.getLatLng) y = y.getLatLng();
+   return x.lat === y.lat && x.lng === y.lng;
+}
+
+
+
 
 /***/ }),
 
@@ -8765,7 +8804,7 @@ Ruta.prototype.remove = function() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Marker_dot_Mutable, L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
 // Issue #79
 // Módulo para gestionar las solicitudes de centro.
 
@@ -8822,7 +8861,7 @@ function Solicitud(adjofer) {
       if(!e.target.status.list) return;
       for(let i=0; i<e.target.status.list.length; i++) {
          const cod = e.target.status.list[i];
-         if(cod instanceof L.Marker.Mutable) continue;
+         if(cod instanceof __webpack_provided_L_dot_Marker_dot_Mutable) continue;
 
          const tipo = cod.endsWith("L")?"Localidad":"Centro",
                entidad = e.target[tipo].get(cod);
@@ -8939,7 +8978,7 @@ function actualiza(pos1, pos2) {
    for(let i=pos1 - 1; i < pos2; i++) {
       const centro = this.store[i];
 
-      if(centro instanceof L.Marker.Mutable) {
+      if(centro instanceof __webpack_provided_L_dot_Marker_dot_Mutable) {
          const pos = centro.getData().peticion;
          centro.changeData({peticion: i+1});
          this.adjofer.fire("requestset", {
@@ -8967,7 +9006,7 @@ Solicitud.prototype.delete = function(pos, cuantos) {
    if(cuantos === undefined || cuantos > restantes) cuantos = restantes;
    const eliminados = this.store.splice(pos-1, cuantos);
    for(const centro of eliminados) {
-      if(!(centro instanceof L.Marker.Mutable)) continue;
+      if(!(centro instanceof __webpack_provided_L_dot_Marker_dot_Mutable)) continue;
 
       const pos = centro.getData().peticion;
       centro.changeData({peticion: 0});
@@ -9055,7 +9094,7 @@ Solicitud.prototype.move = function(pos1, pos2, cuantos) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Solicitud);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis"), __webpack_require__(/*! leaflet */ "leaflet")))
 
 /***/ }),
 
@@ -9068,7 +9107,7 @@ Solicitud.prototype.move = function(pos1, pos2, cuantos) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addDescriptor", function() { return addDescriptor; });
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Marker_dot_Mutable) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addDescriptor", function() { return addDescriptor; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "crearAttrEvent", function() { return crearAttrEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HSLtoRGB", function() { return HSLtoRGB; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rgb2hex", function() { return rgb2hex; });
@@ -9165,7 +9204,7 @@ function rgb2hex(rgb) {
 
 
 function normalizeCodigo(centro) {
-   if(centro instanceof L.Marker.Mutable) {
+   if(centro instanceof __webpack_provided_L_dot_Marker_dot_Mutable) {
       return centro.getData().codigo;
    }
 
@@ -9221,28 +9260,29 @@ const scriptPath = document.currentScript;
 
 /**
  * Obtiene la ruta absoluta de un recurso cuya ruta relativa
- * se proporcionó respecto a la ruta absoluta de otro. Se
- * sobreentiende que se proporciona el recurso y no el directorio
- * que contiene el recurso. O sea, http://example.com/index.html
- * y no http://example.com
+ * se proporcionó respecto a la ruta absoluta de otro. 
  *
  * @param {String} resource  Ruta relativa de otro recurso
  *    respecto al primero
  * @param {String} script    Ruta absoluta de un recurso. Si
- * no se especifica es la ruta de este mismo script.
+ *    se proporciona como recurso un directorio, la ruta debe
+ *    acabar con "/". Si no se especifica es la ruta de este
+ *    mismo script.
  *
  * @returns {String} Ruta absoluta del segundo recurso.
  */
 function getPath(resource, script) {
    script = script || scriptPath.src;
-   script = script.slice(0, script.lastIndexOf("/"));
+   if(!script.endsWith("/")) {
+      script = script.slice(0, script.lastIndexOf("/") + 1);
+   }
    return url__WEBPACK_IMPORTED_MODULE_0___default.a.resolve(script, resource);
 }
 
 
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -9250,33 +9290,23 @@ function getPath(resource, script) {
 /*!***************************!*\
   !*** ./src/utils/turf.js ***!
   \***************************/
-/*! exports provided: default */
+/*! exports provided: difference, booleanPointInPolygon */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _turf_difference_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @turf/difference/index.js */ "./node_modules/@turf/difference/index.js");
 /* harmony import */ var _turf_difference_index_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_turf_difference_index_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "difference", function() { return _turf_difference_index_js__WEBPACK_IMPORTED_MODULE_0___default.a; });
 /* harmony import */ var _turf_boolean_point_in_polygon_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @turf/boolean-point-in-polygon/index.js */ "./node_modules/@turf/boolean-point-in-polygon/index.js");
 /* harmony import */ var _turf_boolean_point_in_polygon_index_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_turf_boolean_point_in_polygon_index_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "booleanPointInPolygon", function() { return _turf_boolean_point_in_polygon_index_js__WEBPACK_IMPORTED_MODULE_1___default.a; });
 // Exporta las únicas librerías de turf necesarias.
 
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({difference: (_turf_difference_index_js__WEBPACK_IMPORTED_MODULE_0___default()), booleanPointInPolygon: (_turf_boolean_point_in_polygon_index_js__WEBPACK_IMPORTED_MODULE_1___default())});
 
-
-/***/ }),
-
-/***/ 0:
-/*!****************************!*\
-  !*** multi ./src/index.js ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./src/index.js */"./src/index.js");
 
 
 /***/ }),
@@ -9289,6 +9319,50 @@ module.exports = __webpack_require__(/*! ./src/index.js */"./src/index.js");
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_leaflet__;
+
+/***/ }),
+
+/***/ "leaflet-contextmenu":
+/*!**************************************************************************************************************************************************!*\
+  !*** external {"root":["L","Map","ContextMenu"],"amd":"leaflet-contextmenu","commonjs":"leaflet-contextmenu","commonjs2":"leaflet-contextmenu"} ***!
+  \**************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_leaflet_contextmenu__;
+
+/***/ }),
+
+/***/ "leaflet-search":
+/*!**********************************************************************************************************************************!*\
+  !*** external {"root":["L","Control","Search"],"amd":"leaflet-search","commonjs":"leaflet-search","commonjs2":"leaflet-search"} ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_leaflet_search__;
+
+/***/ }),
+
+/***/ "leaflet.markercluster":
+/*!************************************************************************************************************************************!*\
+  !*** external {"root":["L"],"amd":"leaflet.Markercluster","commonjs":"leaflet.Markercluster","commonjs2":"leaflet.Markercluster"} ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_leaflet_markercluster__;
+
+/***/ }),
+
+/***/ "leaflet.mutatismutandis":
+/*!**************************************************************************************************************************************************************!*\
+  !*** external {"root":["L","Marker","Mutable"],"amd":"leaflet.mutatismutandis","commonjs":"leaflet.mutatismutandisx","commonjs2":"leaflet.mutatismutandis"} ***!
+  \**************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_leaflet_mutatismutandis__;
 
 /***/ })
 

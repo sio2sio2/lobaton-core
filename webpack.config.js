@@ -38,7 +38,8 @@ function confBundle() {
                   "leaflet.markercluster/dist/MarkerCluster.css",
                   "leaflet.markercluster/dist/MarkerCluster.Default.css",
                   "leaflet-search/dist/leaflet-search.min.css",
-                  "leaflet-search/dist/leaflet-search.mobile.min.css"]
+                  // "leaflet-search/dist/leaflet-search.mobile.min.css",
+                  "./src/index.js"]
       }
    }
 }
@@ -66,17 +67,31 @@ function confNoDeps() {
             commonjs: "Fuse",
             commonjs2: "Fuse"
          },
-         "leaflet-search": "search",
-         "leaflet.markercluster": "cluster",
-         "leaflet-contextmenu": "contextmenu",
-         "leaflet.mutatismutandis": "mutatis"
+         "leaflet-search": {
+            root: ["L", "Control", "Search"],
+            amd: "leaflet-search",
+            commonjs: "leaflet-search",
+            commonjs2: "leaflet-search"
+         },
+         "leaflet.markercluster": {
+            root: ["L"],
+            amd: "leaflet.Markercluster",
+            commonjs: "leaflet.Markercluster",
+            commonjs2: "leaflet.Markercluster"
+         },
+         "leaflet-contextmenu": {
+            root: ["L", "Map", "ContextMenu"],
+            amd: "leaflet-contextmenu",
+            commonjs: "leaflet-contextmenu",
+            commonjs2: "leaflet-contextmenu"
+         },
+         "leaflet.mutatismutandis": {
+            root: ["L", "Marker", "Mutable"],
+            amd: "leaflet.mutatismutandis",
+            commonjs: "leaflet.mutatismutandisx",
+            commonjs2: "leaflet.mutatismutandis"
+         }
       },
-      output: {
-         libraryTarget: "umd",
-         umdNamedDefine: true,
-         library: "lobaton",
-         libraryExport: "default"
-      }
    }
 } 
 
@@ -132,7 +147,7 @@ module.exports = env => {
    const common = {
       mode: mode,
       entry: {
-         [name]: ["./src/index.js"]
+         [name]: "./src/index.js"
       },
       resolve: {
          alias: {
@@ -140,7 +155,11 @@ module.exports = env => {
          }
       },
       output: {
-         filename: filename
+         filename: filename,
+         libraryTarget: "umd",
+         umdNamedDefine: true,
+         library: "lobaton",
+         libraryExport: "default"
       },
       module: {
          rules: [
@@ -186,10 +205,10 @@ module.exports = env => {
             L: "leaflet",
             turf: "app/utils/turf.js",
             Fuse: "fuse.js",
-            search: "leaflet-search",
-            markercluster: "leaflet.markercluster",
-            contextmenu: "leaflet-contextmenu",
-            mutatis: "leaflet.mutatismutandis"
+            "L.Control.Search": "leaflet-search",
+            "L.MarkerClusterGroup": ["leaflet.markercluster", "MarkerClusterGroup"],
+            "L.Map.ContextMenu": "leaflet-contextmenu",
+            "L.Marker.Mutable": "leaflet.mutatismutandis"
          }),
          new MiniCssExtractPlugin({
             filename: env.output === "bundle"?"css/[name].bundle.css":"css/[name].css",

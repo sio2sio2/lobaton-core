@@ -159,7 +159,6 @@ function getPath(resource, script) {
    if(!script.endsWith("/")) {
       script = script.slice(0, script.lastIndexOf("/") + 1);
    }
-   console.log("DEBUG", script, resource, url.resolve(script, resource));
    return url.resolve(script, resource);
 }
 
