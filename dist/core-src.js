@@ -7368,7 +7368,7 @@ __webpack_require__.r(__webpack_exports__);
    piolin: L.utils.createMutableIconClass("piolin", {
       iconSize: null,
       iconAnchor: [12.5, 34],
-      css: Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_3__["getPath"])("css/piolin.css"),
+      // css: getPath("css/piolin.css"),  // Incluimos las reglas en el CSS general
       html: _css_js__WEBPACK_IMPORTED_MODULE_0__["html"],
       converter: _css_js__WEBPACK_IMPORTED_MODULE_0__["converter"],
       updater: _css_js__WEBPACK_IMPORTED_MODULE_0__["updater"]
@@ -7376,7 +7376,7 @@ __webpack_require__.r(__webpack_exports__);
    chupachups: L.utils.createMutableIconClass("chupachups", {
       iconSize: [25, 34],
       iconAnchor: [12.5, 34],
-      css: Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_3__["getPath"])("css/chupachups.css"),
+      // css: getPath("css/chupachups.css"),
       html: _css_js__WEBPACK_IMPORTED_MODULE_0__["html"],
       converter: _css_js__WEBPACK_IMPORTED_MODULE_0__["converter"],
       updater: _css_js__WEBPACK_IMPORTED_MODULE_0__["updater"]
@@ -7408,7 +7408,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "css/chupachups.css";
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -7419,7 +7419,7 @@ module.exports = __webpack_require__.p + "css/chupachups.css";
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "css/piolin.css";
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 

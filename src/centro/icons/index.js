@@ -12,7 +12,7 @@ export default {
    piolin: L.utils.createMutableIconClass("piolin", {
       iconSize: null,
       iconAnchor: [12.5, 34],
-      css: getPath("css/piolin.css"),
+      // css: getPath("css/piolin.css"),  // Incluimos las reglas en el CSS general
       html: css.html,
       converter: css.converter,
       updater: css.updater
@@ -20,7 +20,7 @@ export default {
    chupachups: L.utils.createMutableIconClass("chupachups", {
       iconSize: [25, 34],
       iconAnchor: [12.5, 34],
-      css: getPath("css/chupachups.css"),
+      // css: getPath("css/chupachups.css"),
       html: css.html,
       converter: css.converter,
       updater: css.updater

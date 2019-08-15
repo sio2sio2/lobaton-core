@@ -22,7 +22,7 @@ html, body, #map {
 @media (min-width: 320px) and (max-width: 480px) {
    #sidebar {
       wotdh: 100vw;
-      top: 0; left: 0; bottom: 0:
+      top: 0; left: 0; bottom: 0;
    }
 }
 

@@ -157,14 +157,6 @@ module.exports = env => {
                test: /\.(css|sass)$/,
                oneOf: [
                   {
-                     // El CSS de los iconos va cada uno a su fichero respectivo.
-                     include: path.resolve(__dirname, "src/centro/icons"),
-                     use: ["file-loader?name=css/[name].css",
-                           "extract-loader",
-                           "css-loader",
-                           "sass-loader"]
-                  },
-                  {
                      include: path.resolve(__dirname, "src"),
                      use: [MiniCssExtractPlugin.loader,
                            `css-loader${env.mode === "production"?"":"?sourceMap=true"}`,
