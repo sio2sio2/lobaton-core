@@ -38,6 +38,8 @@ function confBundle() {
                   "leaflet.markercluster/dist/MarkerCluster.css",
                   "leaflet.markercluster/dist/MarkerCluster.Default.css",
                   "leaflet-search/dist/leaflet-search.min.css",
+                  "leaflet/dist/images/marker-shadow.png",
+                  "leaflet/dist/images/marker-icon-2x.png",
                   // "leaflet-search/dist/leaflet-search.mobile.min.css",
                   "./src/index.js"]
       }
@@ -49,18 +51,10 @@ function confBundle() {
 function confNoDeps() {
    return {
       externals: {
-         leaflet: {
-            root: "L",
-            amd: "leaflet",
-            commonjs: "leaflet",
-            commonjs2: "leaflet"
-         },
-         turf: {
-            root: "turf",
-            amd: "turf",
-            commonjs: "turf",
-            commonjs2: "turf"
-         },
+         leaflet: "L",
+         turf: "turf",
+         Fuse: "Fuse",
+         "leaflet.markercluster": "L",
          Fuse: {
             root: "Fuse",
             amd: "Fuse",
@@ -72,12 +66,6 @@ function confNoDeps() {
             amd: "leaflet-search",
             commonjs: "leaflet-search",
             commonjs2: "leaflet-search"
-         },
-         "leaflet.markercluster": {
-            root: ["L"],
-            amd: "leaflet.Markercluster",
-            commonjs: "leaflet.Markercluster",
-            commonjs2: "leaflet.Markercluster"
          },
          "leaflet-contextmenu": {
             root: ["L", "Map", "ContextMenu"],
@@ -190,15 +178,7 @@ module.exports = env => {
             },
             {
                test: /\.(png|jpe?g|gif|svg)$/i,
-               oneOf: [
-                  {  // Las imágenes propios deben permanecer independientes.
-                     include: path.resolve(__dirname, "src"),
-                     use: [ 'file-loader?name=images/[name].[ext]' ]
-                  },
-                  {
-                     use: [ 'url-loader?limit=4096&name=images/[name].[ext]' ]
-                  }
-               ]
+               use: [ 'file-loader?name=images/[name].[ext]' ]
             }
          ]
       },
@@ -213,7 +193,7 @@ module.exports = env => {
             "L.Marker.Mutable": "leaflet.mutatismutandis"
          }),
          new MiniCssExtractPlugin({
-            filename: `css/${filename}.css`,
+            filename: `${filename}.css`,
             chunkFilename: "[id].css"
          })
       ]

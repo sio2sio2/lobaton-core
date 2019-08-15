@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("leaflet"), require("leaflet-contextmenu"), require("leaflet-search"), require("leaflet.Markercluster"), require("leaflet.mutatismutandis"));
+		module.exports = factory(require("L"), require("leaflet-contextmenu"), require("leaflet-search"), require("leaflet.mutatismutandis"));
 	else if(typeof define === 'function' && define.amd)
-		define("lobaton", ["leaflet", "leaflet-contextmenu", "leaflet-search", "leaflet.Markercluster", "leaflet.mutatismutandis"], factory);
+		define("lobaton", ["L", "leaflet-contextmenu", "leaflet-search", "leaflet.mutatismutandis"], factory);
 	else if(typeof exports === 'object')
-		exports["lobaton"] = factory(require("leaflet"), require("leaflet-contextmenu"), require("leaflet-search"), require("leaflet.Markercluster"), require("leaflet.mutatismutandisx"));
+		exports["lobaton"] = factory(require("L"), require("leaflet-contextmenu"), require("leaflet-search"), require("leaflet.mutatismutandisx"));
 	else
-		root["lobaton"] = factory(root["L"], root["L"]["Map"]["ContextMenu"], root["L"]["Control"]["Search"], root["L"], root["L"]["Marker"]["Mutable"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_leaflet__, __WEBPACK_EXTERNAL_MODULE_leaflet_contextmenu__, __WEBPACK_EXTERNAL_MODULE_leaflet_search__, __WEBPACK_EXTERNAL_MODULE_leaflet_markercluster__, __WEBPACK_EXTERNAL_MODULE_leaflet_mutatismutandis__) {
+		root["lobaton"] = factory(root["L"], root["L"]["Map"]["ContextMenu"], root["L"]["Control"]["Search"], root["L"]["Marker"]["Mutable"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE_leaflet__, __WEBPACK_EXTERNAL_MODULE_leaflet_contextmenu__, __WEBPACK_EXTERNAL_MODULE_leaflet_search__, __WEBPACK_EXTERNAL_MODULE_leaflet_mutatismutandis__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -6467,7 +6467,7 @@ function load() {
 
 /* harmony default export */ __webpack_exports__["default"] = (load);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! leaflet.markercluster */ "leaflet.markercluster")["MarkerClusterGroup"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! leaflet.markercluster */ "leaflet")["MarkerClusterGroup"]))
 
 /***/ }),
 
@@ -8349,7 +8349,7 @@ function ORS(adjofer) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(turf, L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* WEBPACK VAR INJECTION */(function(L, turf) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./src/ors/utils.js");
 
 
@@ -8371,12 +8371,14 @@ function Isocronas(ORS, opts) {
       delay: 50
    }
 
+   /*
    try {
       turf
    }
    catch(e) {
       throw new ReferenceError("No se encuentra cargado turf. ¿Ha olvidado cargar la librería en el HTML?");
    }
+   */
 
    this.ORS = ORS;
    this.url = ORS.URLBase + "/v2/isochrones";
@@ -8609,7 +8611,7 @@ Isocronas.prototype.get = function(maciza) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Isocronas);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! app/utils/turf.js */ "./src/utils/turf.js"), __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! app/utils/turf.js */ "./src/utils/turf.js")))
 
 /***/ }),
 
@@ -9312,9 +9314,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "leaflet":
-/*!****************************************************************************************!*\
-  !*** external {"root":"L","amd":"leaflet","commonjs":"leaflet","commonjs2":"leaflet"} ***!
-  \****************************************************************************************/
+/*!********************!*\
+  !*** external "L" ***!
+  \********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9341,17 +9343,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_leaflet_contextmenu__;
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_leaflet_search__;
-
-/***/ }),
-
-/***/ "leaflet.markercluster":
-/*!************************************************************************************************************************************!*\
-  !*** external {"root":["L"],"amd":"leaflet.Markercluster","commonjs":"leaflet.Markercluster","commonjs2":"leaflet.Markercluster"} ***!
-  \************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_leaflet_markercluster__;
 
 /***/ }),
 

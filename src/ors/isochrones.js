@@ -18,12 +18,14 @@ function Isocronas(ORS, opts) {
       delay: 50
    }
 
+   /*
    try {
       turf
    }
    catch(e) {
       throw new ReferenceError("No se encuentra cargado turf. ¿Ha olvidado cargar la librería en el HTML?");
    }
+   */
 
    this.ORS = ORS;
    this.url = ORS.URLBase + "/v2/isochrones";
