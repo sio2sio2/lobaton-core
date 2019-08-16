@@ -29,7 +29,8 @@ La librería define un objeto que posibilita:
     usarlas como criterio de filtro.
 
 Un ejemplo con una interfaz muy simple de aplicación, que permite manipular
-mínimamente los datos del mapa es `éste <https://sio2sio2.github.io/examples>`_.
+mínimamente los datos del mapa es `éste
+<https://sio2sio2.github.io/lobaton-core/examples>`_.
 
 Instalación
 ***********
@@ -37,7 +38,7 @@ Para el desarrollo de la interfaz con NodeJS_ basta con instalar el paquete:
 
 .. code-block:: console
 
-   $ npm install @lobaton/core
+   $ npm install git+https://github.com/sio2sio2/lobaton-core
 
 e importar la función que crear el objeto de manipulación del mapa en el código
 propio\ [#]_:
@@ -111,8 +112,8 @@ disponemos de tres sabores distintos:
 
 .. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
       los iconos png necesarios para `L.Icon.Default`_ en forma de `dataURI
-      <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs>`.
-      Hay otra versión (:file:`@lobaton/core/dist/core.js`) sin dependencias
+      <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs>`_.
+      Hay otra versión (``@lobaton/core/dist/core.js``) sin dependencias
       pero obliga a declararlas al construir el paquete. Si su intención es usar
       esta versión sin dependencias, échele un ojo al :file:`webpack.config.js`
       que trae el paquete.
