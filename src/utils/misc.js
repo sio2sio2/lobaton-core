@@ -155,6 +155,9 @@ const scriptPath = document.currentScript;
  * @returns {String} Ruta absoluta del segundo recurso.
  */
 function getPath(resource, script) {
+   // Es una dataURI.
+   if(resource.startsWith("data:")) return resource;
+
    script = script || scriptPath.src;
    if(!script.endsWith("/")) {
       script = script.slice(0, script.lastIndexOf("/") + 1);

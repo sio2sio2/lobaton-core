@@ -1,5 +1,5 @@
 import {getPath} from "app/utils/misc.js";
-import "./images/solicitud.svg";
+import svg from "./images/solicitud.svg";
 
 // Definición del icono de solicitud
 const converter = new L.utils.Converter(["peticion", "sel"])
@@ -29,6 +29,6 @@ function updater(o) {
    return this;
 }
 
-const url = getPath("images/solicitud.svg");
+const url = getPath(svg);
 
 export {converter, url, updater}

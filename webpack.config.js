@@ -170,7 +170,15 @@ module.exports = env => {
             },
             {
                test: /\.(png|jpe?g|gif|svg)$/i,
-               use: [ 'file-loader?name=images/[name].[ext]' ]
+               oneOf: [
+                  {
+                     include: /node_modules/,
+                     use: [ 'file-loader?name=images/[name].[ext]' ]
+                  },
+                  {
+                     use: [ 'url-loader?name=images/[name].[ext]' ]
+                  }
+               ]
             }
          ]
       },

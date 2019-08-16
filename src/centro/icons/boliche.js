@@ -1,5 +1,5 @@
 import {getPath, rgb2hex, HSLtoRGB} from "app/utils/misc.js";
-import "./images/boliche.svg";
+import svg from "./images/boliche.svg";
 
 // Definición del icono de centro
 const converter = new L.utils.Converter(["numvac", "tipo", "numofer", "bil", "ofervar", "sel"])
@@ -128,6 +128,6 @@ const updater = (function(o) {
    return updater;
 })();
 
-const url = getPath("images/boliche.svg");
+const url = getPath(svg);
 
 export {converter, url, updater}

@@ -1,6 +1,6 @@
 import {getPath} from "app/utils/misc.js";
-import "./images/zoom-in.png";
-import "./images/zoom-out.png";
+import zoomIn from "./images/zoom-in.png";
+import zoomOut from "./images/zoom-out.png";
 
 // Para asegurarnos de que ProvidePlugin (webpack)
 // cargará el código.
@@ -25,12 +25,12 @@ function map() {
          "-",
          {
             text: "Ampliar escala",
-            icon: getPath("images/zoom-in.png"),
+            icon: getPath(zoomIn),
             callback: e => this.map.zoomIn()
          },
          {
             text: "Reducir escala",
-            icon: getPath("images/zoom-out.png"),
+            icon: getPath(zoomOut),
             callback: e => this.map.zoomOut()
          }
       ]

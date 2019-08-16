@@ -1,5 +1,5 @@
 import {getPath} from "app/utils/misc.js";
-import "./images/ajax-loader.gif";
+import loader from "./images/ajax-loader.gif";
 
 // tipo: isocronas, geocode, ruta.
 function ajaxGif(tipo) {
@@ -13,7 +13,7 @@ function ajaxGif(tipo) {
                                  L.DomUtil.get("map"));
       loading.id = "leaflet-loading";
       const img = document.createElement("img");
-      img.setAttribute("src", getPath("images/ajax-loader.gif"));
+      img.setAttribute("src", getPath(loader));
       loading.appendChild(img);
    }
 }

@@ -1,5 +1,5 @@
 import {getPath} from "app/utils/misc.js";
-import "./images/localidad.svg";
+import svg from "./images/localidad.svg";
 
 const converter = new L.utils.Converter(["peticion"])
                              .define("peticion");
@@ -30,7 +30,7 @@ function updater(o) {
 export default L.utils.createMutableIconClass("localidad", {
    iconSize: [26, 40],
    iconAnchor: [13, 39.43],
-   url: getPath("images/localidad.svg"),
+   url: getPath(svg),
    converter: converter,
    updater: updater
 });
