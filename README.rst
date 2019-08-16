@@ -40,11 +40,12 @@ Para el desarrollo de la interfaz con NodeJS_ basta con instalar el paquete:
    $ npm install @lobaton/core
 
 e importar la función que crear el objeto de manipulación del mapa en el código
-propio:
+propio\ [#]_:
 
 .. code-block:: js
 
-   import lobaton from "@lobaton/core";
+   import "@lobaton/core/dist/core.bundle.css";
+   import lobaton from "@lobaton/core/dist/core.bundle.js";
 
 Si nuestra intención es usar la librería directamente en el **navegador**,
 disponemos de tres sabores distintos:
@@ -83,8 +84,8 @@ disponemos de tres sabores distintos:
      <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 
      <!-- Lobatón Core -->
-     <link rel="stylesheet" href="https://unpkg.com/@lobaton/core/dist/core.css">
-     <script src="https://unpkg.com/@lobaton/core"></script>
+     <link rel="stylesheet" href="https://sio2sio2.github.io/lobaton-core/dist/core.bundle.css">
+     <script src="https://sio2sio2.github.io/lobaton-core/dist/core.bundle.js"></script>
 
 * ``core-src.js``, que es la versión de desarrollo de la librería y es
   sólo útil para labores de depuración con el navehador, aunque para tal labor
@@ -108,6 +109,15 @@ disponemos de tres sabores distintos:
      <link rel="stylesheet" href="https://unpkg.com/@lobaton/core/dist/core.bundle.css">
      <script src="https://unpkg.com/@lobaton/core/dist/core.bundle.js"></script>
 
+.. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
+      los iconos png necesarios para `L.Icon.Default`_ en forma de `dataURI
+      <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs>`.
+      Hay otra versión (:file:`@lobaton/core/dist/core.js`) sin dependencias
+      pero obliga a declararlas al construir el paquete. Si su intención es usar
+      esta versión sin dependencias, échele un ojo al :file:`webpack.config.js`
+      que trae el paquete.
+
+
 .. _Leaflet: https://leafletjs.com
 .. _leaflet.mutatismutandis: https://github.com/sio2sio2/leaflet.mutatismutandis
 .. _VanillaJS: http://vanilla-js.com
@@ -116,3 +126,4 @@ disponemos de tres sabores distintos:
 .. _VueJS: https://vuejs.org/
 .. _Leaflet.MarkerCluster: https://github.com/Leaflet/Leaflet.markercluster
 .. _NodeJS: https://nodejs.org
+.. _L.Icon.Default: https://leafletjs.com/reference-1.5.0.html#icon-default
