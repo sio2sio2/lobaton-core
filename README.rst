@@ -85,8 +85,8 @@ disponemos de tres sabores distintos:
      <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 
      <!-- Lobatón Core -->
-     <link rel="stylesheet" href="https://sio2sio2.github.io/lobaton-core/dist/core.bundle.css">
-     <script src="https://sio2sio2.github.io/lobaton-core/dist/core.bundle.js"></script>
+     <link rel="stylesheet" href="https://sio2sio2.github.io/lobaton-core/dist/core.css">
+     <script src="https://sio2sio2.github.io/lobaton-core/dist/core.js"></script>
 
 * ``core-src.js``, que es la versión de desarrollo de la librería y es
   sólo útil para labores de depuración con el navehador, aunque para tal labor
@@ -98,8 +98,8 @@ disponemos de tres sabores distintos:
      <!-- Las mismas dependencias expuestas arriba -->
 
      <!-- Lobatón Core -->
-     <link rel="stylesheet" href="https://unpkg.com/@lobaton/core/dist/core-src.css">
-     <script src="https://unpkg.com/@lobaton/core/dist/core-src.js"></script>
+     <link rel="stylesheet" href="https://sio2sio2.github.io/lobaton-core/dist/core-src.css">
+     <script src="https://sio2sio2.github.io/lobaton-core/dist/core-src.js"></script>
 
 * ``core.bundle.js``, que incluye todas las dependencias y es la versión
   que se aconseja usar, si el desarrollo de la interfaz no se hace con NodeJS_:
@@ -107,15 +107,15 @@ disponemos de tres sabores distintos:
   .. code-block:: html
 
      <!-- Lobatón Core + Dependencias -->
-     <link rel="stylesheet" href="https://unpkg.com/@lobaton/core/dist/core.bundle.css">
-     <script src="https://unpkg.com/@lobaton/core/dist/core.bundle.js"></script>
+     <link rel="stylesheet" href="https://sio2sio2.github.io/lobaton-core/dist/core.bundle.css">
+     <script src="https://sio2sio2.github.io/lobaton-core/dist/core.bundle.js"></script>
 
 .. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
       los iconos png necesarios para `L.Icon.Default`_ en forma de `dataURI
       <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs>`_.
       Hay otra versión (``@lobaton/core/dist/core.js``) sin dependencias
       pero obliga a declararlas al construir el paquete. Si su intención es usar
-      esta versión sin dependencias, échele un ojo al :file:`webpack.config.js`
+      esta versión sin dependencias, échele un ojo al ``webpack.config.js``
       que trae el paquete.
 
 
