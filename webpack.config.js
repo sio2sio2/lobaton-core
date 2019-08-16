@@ -34,6 +34,7 @@ function confBundle() {
    return {
       entry: {
          [name]: ["leaflet/dist/leaflet.css",
+                  "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css",
                   "leaflet-contextmenu/dist/leaflet.contextmenu.css",
                   "leaflet.markercluster/dist/MarkerCluster.css",
                   "leaflet.markercluster/dist/MarkerCluster.Default.css",
@@ -52,6 +53,7 @@ function confNoDeps() {
    return {
       externals: {
          leaflet: "L",
+         "leaflet-defaulticon-compatibility": "L.Compatibility",
          turf: "turf",
          Fuse: "Fuse",
          "leaflet.markercluster": "L",
@@ -170,21 +172,14 @@ module.exports = env => {
             },
             {
                test: /\.(png|jpe?g|gif|svg)$/i,
-               oneOf: [
-                  {
-                     include: /node_modules/,
-                     use: [ 'file-loader?name=images/[name].[ext]' ]
-                  },
-                  {
-                     use: [ 'url-loader?name=images/[name].[ext]' ]
-                  }
-               ]
+               use: [ 'url-loader?name=images/[name].[ext]' ]
             }
          ]
       },
       plugins: [
          new webpack.ProvidePlugin({
             L: "leaflet",
+            "L.compatibility": "leaflet-defaulticon-compatibility",
             turf: "app/utils/turf.js",
             Fuse: "fuse.js",
             "L.Control.Search": "leaflet-search",

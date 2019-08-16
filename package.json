@@ -2,7 +2,7 @@
   "name": "@lobaton/core",
   "description": "Núcleo que implementa un mapa de adjudicaciones y oferta para centros educativos",
   "author": "José Miguel Sánchez Alés <sio2sio2+github@gmail.com>",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/core.js",
   "scripts": {
     "build": "webpack --env.output=min --progress",
@@ -69,6 +69,7 @@
     "leaflet-contextmenu": "^1.4.0",
     "leaflet-search": "^2.9.8",
     "leaflet.markercluster": "^1.4.1",
-    "leaflet.mutatismutandis": "^0.1.6"
+    "leaflet.mutatismutandis": "^0.1.6",
+    "leaflet-defaulticon-compatibility": "^0.1.1"
   }
 }
