@@ -451,6 +451,9 @@ Objeto
 El paquete facilita, mediante cr función ``lobaton``, la creación de un objeto
 para el acceso a la manipulación del mapa:
 
+Creación
+========
+
 .. _lobaton:
 
 **lobaton(opts)**
@@ -539,14 +542,139 @@ para el acceso a la manipulación del mapa:
 .. note:: Si no se facilita centro (opción *center*), la aplicación intentará
    averiguar las coordenadas del dispositivo para situar en ellas el centro.
 
-.. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
-      los iconos png necesarios para `L.Icon.Default`_ en forma de `dataURI
-      <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs>`_.
-      Hay otra versión (``@lobaton/core/dist/core.js``) sin dependencias
-      pero obliga a declararlas al construir el paquete. Si su intención es usar
-      esta versión sin dependencias, échele un ojo al ``webpack.config.js``
-      que trae el paquete.
+Atributos
+=========
+.. warning:: No sobreescriba los valores de estos atributos. Limítese a
+   consultarlos y usarlos. Para cambiarlos existen métodos específicos.
 
+.. _cluster:
+
+``cluster``
+   Es la capa a la que se añaden las marcas de centro. En consecuencia:
+
+   .. code-block:: js
+
+      g.cluster.getLayers()
+
+   nos devolvería todas las marcas de centro que se encuentren sobre el mapa\
+   [#]_. No presenta ninguna característica extendida.
+
+.. _Centro:
+
+``Centro``
+   Clase de iconos mutables (`L.Marker.Mutable`_) a la que pertenecen las marcas
+   de centro. Sobra esta clase se aplicar las Correcciones_ y Filtros_, que
+   trataremos más adelante.
+
+   Además, esta clase añade dos particularidades a los atributos propios de
+   `L.Marker.Mutable`_:
+
+   .. _get():
+
+   ``.get(codigo)``,
+      que permite obtener la amrca del centro cuyo código es el suministrado
+      en cualquiera de sus variantes:
+
+      .. code-block:: js
+
+         centro = g.Centro.get(23001111);     // Variante numérica.
+         centro = g.Centro.get("23001111");   // Variante de cadena.
+         centro = g.Centro.get("23001111C");   // Variante normalizada.
+
+
+   Además, a los datos se incorpora un *getter*, que permite obtener el código
+   normalizado del centro:
+
+   .. code-block:: js
+
+      centro.getData().id.cod;  // código numérico de los datos: 23001111
+      centro.getData().codigo;  // Código normalizado: 23001111C
+
+.. _general:
+
+``general``
+   Almacena la información general del GeoJSON_ de Datos_ (o sea, la primera
+   *feature*).
+
+``status``
+   Devuelve el estado actual del mapa (origen, filtros correcciones, etc.). El
+   estado adicional que aporte la interfaz visual se encontrará dentro de su
+   atributo *visual*. Este estado es dinámico y varía cada vez que se realiza una
+   acción sobre el mapa que modifica el estado. excepto *visual*, que como
+   recoge caractarísticas del estado de la interfaz ajenas al mapa, mantendrá
+   sus valores iniciales. Para más información eche un ojo al método
+   `getStatus()`_.
+
+``seleccionado``
+   Establece un centro como el seleccionado, lo que se notará visualmente
+   rodeando el icono con una circunferencia roja. Es la única propiedad a la que
+   podemos asociar valor directamente:
+
+   .. code-block:: js
+
+      g.seleccionado = g.Centro.get(21002100);  // Seleccionamos el centro 21002100.
+      g.seleccionado = null;     // Deshacemos la selección.
+
+   La selección de un centro tiene asociado el evento markerselect_.
+
+``origen``
+   Marca que representa el origen del viaje. Puede no existir, si no se ha
+   definido ningún origen. El establecimniento del origen está asociado al
+   evento originset_.
+
+   La asignación de un valor a g.origen.postal tiene asociado el evento geocode_
+   aplicable a la propia marca de origen:
+
+   .. code-block:: js
+
+      g.on("originset", e => {
+         if(!e.newval) return;
+         e.newval.once("geocode", x => {
+            console.log(`Pues sí, estoy en '${x.newval}'`);
+         });
+      });
+
+``contador``
+   Número de consultas realizadas al servicio de OpenRouteService_.
+
+``direccion``
+   Almacena el resultado de una geocodificación. Si se realizó la consulta de la
+   dirección postal de unas coordenadas contendrá una cadena; y, si se pretendió
+   obtener las coordenadas de una dirección postal, el objeto GeoJSON_ con todas
+   las localizaciones posibles.
+
+``isocronas``
+   Array con las marcas que representan las áreas de los anillos que se forman
+   entre isocronas. Tales marcas tienen asociadas mediante su atributo *feature*
+   el objeto GeoJSON_ que define el área.
+
+``ruta``
+   Objeto que contiene dos atributos: *ruta.destino*, que es la marca de centro
+   que se usó como destino de la ruta; y *ruta.layer* que es la capa que
+   representa la ruta (la cual a su vez tendrá asociada en su atributo *feature*
+   el objeto GeoJSON_ que define la ruta).
+
+Métodos
+=======
+
+Eventos
+=======
+
+Centros
+*******
+
+.. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
+   los iconos png necesarios para `L.Icon.Default`_ en forma de `dataURI
+   <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs>`_.
+   Hay otra versión (``@lobaton/core/dist/core.js``) sin dependencias pero
+   obliga a declararlas al construir el paquete. Si su intención es usar esta
+   versión sin dependencias, échele un ojo al ``webpack.config.js`` que trae el
+   paquete.
+
+.. [#] Lo cual no significa que devuelve todas las marcas de centro, ya que
+   puede haber centros que no se encuentren sobre el mapa porque hayan ido
+   desaparecido al filtrarse. Para obtener todos los centros necesitaría
+   recurrir a ``g.Centro.store``.
 
 .. _Leaflet: https://leafletjs.com
 .. _leaflet.mutatismutandis: https://github.com/sio2sio2/leaflet.mutatismutandis
@@ -560,3 +688,4 @@ para el acceso a la manipulación del mapa:
 .. _GeoJSON: https://geojson.org/
 .. _L.Map: https://leafletjs.com/reference-1.5.0.html#map
 .. _OpenRouteService: https://openrouteservice.org
+.. _L.Marker.Mutable: https://github.com/sio2sio2/leaflet.mutatismutandis#l-marker-mutable
