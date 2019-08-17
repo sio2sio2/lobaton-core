@@ -814,9 +814,323 @@ Métodos
 
 Eventos
 =======
+Hay toda una serie de eventos asociados al objeto_ que pueden ayudarnos a
+capturar acciones que se realizan sobre el mapa:
 
-Centros
-*******
+.. _dataloaded:
+
+``dataloaded``
+   Se desencadena al terminar de cargar los datos el método `agregarCentros()`_.
+
+.. _markerselect:
+
+``markerselect``
+   Se desencadena al seleccionar o deseleccionar un centro. En el objeto de
+   evento ``e.oldval`` y ``e.newval`` contienen respectivamente la marca
+   anteriormente y posteriomente seleccionadas:
+
+   .. code-block:: js
+
+      g.on("markerselect", e => {
+         if(e.oldval) {
+            const nombre = e.oldval.getData().id.nom;
+            console.log(`Antes tenía seleccionado el centro ${nombre}`);
+         }
+         if(e.newval) {
+            const nombre = e.newval.getData().id.nom;
+            console.log(`Acaba de seleccionar el centro ${nombre}`);
+         }
+      });
+
+.. _addressset:
+
+``addressset``
+   Se desencadena tras resolver una geocodificación con OpenRouteService_ a
+   través del método `geoCodificar()`_. ``e.newval`` contiene el resultado de la
+   geocodificación.
+
+.. _originset:
+
+``originset``
+   Se desencadena tras establecer un origen de viajes. Dispone de ``e.oldval`` y
+   ``e.newval`` como el evento markerselect_.
+
+.. _isochroneset:
+
+``isochroneset``
+   Se desencadena al terminar de generar un juego de isocronas a través del
+   método `setIsocronas()`_. ``e.newval`` proporcionará el nuevo valor del
+   atributo *isocronasi*.
+
+``routeset``
+   Se desencadena al terminar de generar la ruta entre el origen y el centro
+   definido como destino mediante el método `setRuta()`_. ``e.newval``
+   proporcionará el nuevo calor del atributo ruta.
+
+``statuschange``
+   Se desencadena siempre que se lleva a cabo una acción que provoca un cambio
+   en el mapa desde crear un origen o cambiar de zoom. Para conocer cuál es la
+   acción, puede consultarse el atributo *attr* del evento:
+
+   .. code-block:: js
+
+      g.on("statuschange", e => console.log(`El culpable soy yo, ${e.attr}`));
+
+``statusset``
+   Se desencadena al acabar de aplicar el estado inicial del mapa. El evento
+   dispone del atributo *status* para saber si se aplicó una configuración
+   guardada.
+
+Correcciones
+============
+Se pueden definir correcciones bien sobre la **oferta**, bien las
+**adjudicaciones**. 
+
+Oferta
+------
+
+.. _bilingue:
+
+``bilingue``
+   Permite corregir las enseñanzas impartidas basándose en los planes de
+   bilingüismo. Se aplica así:
+
+   .. code-block:: js
+
+      Centro.correct("bilingue", {
+         bil: [ "Inglés", "Francés"],
+         inv: false
+      }):
+
+   Su sentido es el de eliminar las enseñanzas que sean bilingües en alguno de
+   los idiomas mencionados. Este sentido se produce cuando no se incluye la
+   opción *inv* o se hace con un valor falso. Añadir *inv* con valor true
+   implica invertir el significado, por lo que en este caso concreto:
+
+   .. code-block:: js
+
+      Centro.correct("bilingue", {
+         bil: [ "Inglés", "Francés"],
+         inv: true
+      }):
+
+   significa no eliminar las enseñanzas que sean bilingües en inglés o francés.
+
+   .. note:: Hay otras correcciones que admiten la opción inv como inversor de
+      significado. Se notará a partir de ahora incluyéndola como en el primer
+      ejemplo con su valor a ``false``, pero sin detallar más para no resultar
+      tedioso.
+
+   Si se añade un añade un tercer argumento ``true``:
+
+   .. code-block:: js
+
+      Centro.correct("bilingue", {
+         bil: [ "Inglés", "Francés"],
+         inv: false
+      }, true):
+
+   lanza automáticamente una corrección adjpue_ que elimina los puestos
+   bilingües asociados.
+
+   .. note:: A partir de ahora, si la corrección es capaz de lanzar
+      automáticamente alguna otra, se notará este hecho incluyendo im tercer
+      argumento ``false``.
+
+.. _ofens:
+
+   Elimina las enseñanzas que se sumunistran:
+
+   .. code-block:: js
+
+      Centro.correct("ofens", {
+         ens: ["23GMSMR168", "23GSASI820"],
+         inv: false
+      }, false);
+
+   En este caso, se eliminarán de las oferta de cada centro las enseñanzas
+   con esos dos códigos.
+
+   Si se habilita el encadenamiento, se lanzará una corrección adjpue_ que
+   elimina los puestos que sólo puedan impartir clase en las enseñanzas
+   eliminadas.
+
+.. _deseable:
+
+``deseable``
+   Elimina enseñanzas no desables, que son aquellas no marcadas como preferentes
+   en la base de datos. Por ejemplo, para una especialidad como Matemáticas
+   los bachilleratos (frente a la enseñanza secundaria):
+
+   .. code-block:: js
+
+      Centro.conrrect("deseable", {});
+
+   .. note:: En realidad, la corrección está implementada como una una
+      corrección que no filtra nada, sino que lanza automáticamente una
+      corrección ofens_. No es necesario añadir el tercer argumentoa true,
+      porque el encadenamiento se lanza automáticamente.``
+
+.. _turno:
+
+``turno``
+   Elimina enseñanzas que sean del turno indicado, de manera que **1**
+   representa la mañana, y **2** la tarde:
+
+   .. code-block:: js
+
+      Centro.correct("turno", {
+         turno : 1,
+         inv: false
+      });
+
+   En este caso, se eliminan las enseñanzas que se impartan por la mañana.
+
+.. _nueva:
+
+``nueva``
+   Elimina enseñanzas que no sean de nueva implantación:
+
+   .. code-block:: js
+
+      Centro.correct("nueva", {});
+
+Adjudicaciones
+--------------
+
+.. _vt+:
+
+``vt+``
+   Agrega a las adjudicaciones del procedimiento, las aparecidas en septiembre
+   como consecuencia del aumento en las plantillas de funcionamiento. Son las
+   que se notan como telefónicas en la aplicación. No requiere opciones:
+
+   .. code-block:: js
+
+      Centro.correct("vt+", {});
+
+.. _adjpue:
+
+``adjpue``
+   Elimina adjudicaciones según el puesto. En este caso:
+
+   .. code-block:: js
+
+      Centro.correct("adj", {
+         puesto: [ "00590059", "11590107" ],
+         inv: false
+      });
+
+   elimina las adjudicaciones que sean de los puestos *00590059* y *11590107*.
+
+.. _vt:
+
+``vt``
+   Elimina adjudicaciones que no hayan sido telefónicas:
+
+   .. code-block:: js
+
+      Centro.correct("vt", {});
+
+.. _adjfer:
+
+``adjofer``
+   Elimina las adjudicaciones hechas a adjudicatarios con mayor prioridad que el
+   adjudicatario que se proporciona como referencia. Para establecer este
+   referente se proporcionan tres opciones:
+
+   * *col*, que representa el colectivo, según la letra que tiene asignada
+     (véase el GeoJSON_ de datos_).
+
+   * *ts*, que es el tiempo de servicio del funcionario y se expresa como un
+     *array* de tres enteros (``[años, meses, días]``). Si no se proporciona
+     este tiempo para los funcionarios no interinos, se estima basándose en el
+     escalafón.
+
+   * *esc*, que es el número de escalafón de los funcionarios de carrera y en
+     prácticas.
+
+   Por ejemplo:
+
+   .. code-block:: js
+
+      Centro.correct("adjref", {
+         colectivo: "DB",  // Funcioanrio con comisión de servicios.
+         esc: 20041111,
+         ts: [9, 10, 2]
+      });
+      
+.. note:: Recuerde que la aplicación y desaplicación de correcciones tiene
+   asociados eventos. Consulte `estos eventos en la documentación de
+   Leaflet.mutatismutandis
+   <https://github.com/sio2sio2/leaflet.mutatismutandis#api-para-correcciones>`_
+
+Filtros
+=======
+Hay definidos los siguientes filtros:
+
+.. _adj:
+
+``adj``
+   Elimina centros que se tengan menos de un determinado número de
+   adjudicaciones. Requiere pasar el atributo *min*:
+
+   .. code-block:: js
+
+      g.Centro.filter("adj", {min: 1});
+
+   En este caso, se filtrarán los centros sin ninguna adjudicación.
+
+.. _oferta:
+
+``oferta``
+   Elimina centros que se hayan quedado con menos de un determinado número de
+   enseñanzas. Se usa exactamente del mismo modo que el anterior:
+
+   .. code-block:: js
+
+      g.Centro.filter("oferta", {min: 1});
+
+.. _tipo:
+
+``tipo``
+   Elimina centros según su dificultad, que puede ser normal, compensataria (1)
+   dificil [desempeño] (2). Debe pasársele un atributo *tipo* cuyo valor debe
+   ser la suma de los tipos de centro que se quieren filtrar:
+
+   .. code-block:: js
+
+      g.Centro.filter("tipo", {tipo: 1});  // Filtra de compensatoria.
+      g.Centro.filter("tipo", {tipo: 2});  // Filtra de difícil desempeño.
+      g.Centro.filter("tipo", {tipo: 3});  // Filtra de ambos tipos.
+
+   Es posible añadir la atributo *inv* para invertir el sentido del filtro:
+
+   .. code-block:: js
+
+      g.Centro.filter("tipo", {tipo: 3, inv: true});  // Filtra centros normales.
+
+.. _lejos:
+
+``lejos``
+   Elimina centros que se encuentren fuera de una determinada área. El nombre
+   deriva de que se aplica a las áreas que encierran las isocronas y, en
+   consecuencia, filtra centros más lejano en tiempo al que define la isocrona.
+   Puede aplicarse pasando un *area* en formato GeoJSON_:
+
+   .. code-block:: js
+
+      const iso20 = g.getIsocronas(true)[1];  // // Área que encierra la isocrona de 20 min
+      g.Centro.filter("lejos", {area: iso20}); // Filtro centros alejados en más de 20 min
+
+
+.. note::  Recuerde que la aplicación y desaplicación de filtros tiene
+   asociados eventos. Consulte `estos eventos en la documentación de
+   Leaflet.mutatismutandis
+   <https://github.com/sio2sio2/leaflet.mutatismutandis#api-para-filtros>`_
+
+Solicitudes
+***********
 
 .. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
    los iconos png necesarios para `L.Icon.Default`_ en forma de `dataURI
