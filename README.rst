@@ -1129,8 +1129,75 @@ Hay definidos los siguientes filtros:
    Leaflet.mutatismutandis
    <https://github.com/sio2sio2/leaflet.mutatismutandis#api-para-filtros>`_
 
-Solicitudes
-***********
+Peticiones de destino
+*********************
+Para facilitar la creación de una lista de peticiones el objeto_ de acceso al
+mapa añade dos atributos:
+
+.. _mode:
+
+``mode``
+   Modo de trabajo. Hay definidos dos:
+  
+   * el modo «*normal*», que provoca que un click de ratón sobre la marca de
+     un centro lo seleccione; y
+    
+   * el modo «solicitud», que en vez de seleccionar el centro, lanza el evento
+     requestclick_. En este segundo modo, el evento también se lanza cuando se
+     hace click sobre la marca de una localidad_.
+
+   .. note:: Esto es cierto siempre que la opción light del objeto sea
+      verdadera. Si no es el caso, no hay ninguna acción asociada al click sobre
+      el centro.
+   
+.. _solicitud:
+
+``solicitud``
+   Objeto que permite manipular la lista de peticiones. Tiene sus propios
+   métodos y atributos que será necesario conocer si se implementa la solicitud
+   de centros. Por ejemplo, esta orden:
+
+   .. code-block:: js
+
+      g.solicitud.add(11004866);
+
+   añade al final de la lista de peticiones el centro con el código indicado.
+
+Además de estos atributos del objeto, los centros tiene dos características
+relacionadas con la petición de destinos: 
+
+* A sus datos se añade un atributo llamado *peticion* que indica en que posición
+  se pidió el centro. Si el centro no está pedido, vale 0, que es el valor
+  asignado en un comienzo a todos los centros.
+
+* El estilo de icono "*solicitud*", distinto radicalmente al estilo «boliche», y
+  que sólo muestra como dato relevante el número de petición.
+
+Objeto solicitud
+================
+El objeto solicitud enganchado al objeto_ de manipulación del mapa presenta la
+siguiente *API*:
+
+Atributos
+---------
+.. _list:
+
+``list``
+   *Array* con los códigos de los centros y localidades solicitadas. En el caso
+   de los centros el código se muestra como una cadena de 9 caracteres el último
+   de los cuales es el carácter *C*; y en el caso de las localidad_\ es, como una
+   cadena de 10 caracteres el último de los cuales es el carácter *L*.
+
+Métodos
+-------
+
+Eventos
+-------
+
+Filtro
+------
+
+
 
 .. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
    los iconos png necesarios para `L.Icon.Default`_ en forma de `dataURI
