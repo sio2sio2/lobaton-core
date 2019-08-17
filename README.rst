@@ -89,9 +89,9 @@ disponemos de tres sabores distintos:
      <script src="https://sio2sio2.github.io/lobaton-core/dist/core.js"></script>
 
 * ``core-src.js``, que es la versión de desarrollo de la librería y es
-  sólo útil para labores de depuración con el navehador, aunque para tal labor
+  sólo útil para labores de depuración con el navegador, aunque para tal labor
   es aconsejable utilizar NodeJS_. Requiere cargar las mismas dependencias y
-  sólo difiere en cómo cargar el propio lobatón:
+  sólo difiere en cómo cargar el propio **Lobatón**:
 
   .. code-block:: html
 
@@ -446,6 +446,98 @@ Los datos son bastante elocuentes, pero algunos requieren explicación:
   * *ubi*, ``true`` si el funcionario obtuvo plaza en el concurso de traslados y,
     en principio, no volverá a ocupar esa plaza.
 
+Objeto
+******
+El paquete facilita, mediante cr función ``lobaton``, la creación de un objeto
+para el acceso a la manipulación del mapa:
+
+.. _lobaton:
+
+**lobaton(opts)**
+   Crea un objeto para interactuar con el mapa:
+
+   .. code-block:: js
+
+      g = lobaton({
+         center: [37.45, -4.5],
+         pathLoc: "json/localidades.json",
+         unclusterZoom: 13,
+         zoom: 8,
+         ors: {key: "###--KEY--###"}
+      });
+
+   A la función pueden facilitarse cualquiera de las opciones para la creación
+   de un objeto `L.Map`_ (como *zoom* o *center*) y las siguientes:
+
+   +---------------+----------------------------------------------------------+
+   | Opción        | Descripción                                              |
+   +===============+==========================================================+
+   | autostatus    | Aplica automáticamente la configuración proporcionada a  |
+   |               | través de la opción *status*. Por defecto, ``true``.     |
+   |               | Véase el método `setStatus()`_                           |
+   +---------------+----------------------------------------------------------+
+   | icon          | Estilo del icono. Puede ser "*boliche*" o "*chupachups*".|
+   |               | Por defecto, "*boliche*".                                |
+   +---------------+----------------------------------------------------------+
+   | id            | Identificador del elemento *HTML* donde se incrustará el |
+   |               | mapa.                                                    |
+   +---------------+----------------------------------------------------------+
+   | light         | Si ``true`` (su valor por defecto), se implementan       |
+   |               | algunos aspectos del comportamiento del mapa:            |
+   |               |                                                          |
+   |               | * *Click* sobre el centro, lo selecciona.                |
+   |               | * Crea menús contextuales al pulsar el botón derecho     |
+   |               |   sobre el mapa, los centros, el origen de los viajes    |
+   |               |   y las áreas que encierran las isocronas.               |
+   +---------------+----------------------------------------------------------+
+   | loading       | Función que construye un indicador para notar la carga   |
+   |               | de datos remotos. Si es ``true``, se usa el indicador    |
+   |               | interno; y si ``false``, se prescindirá de indicador     |
+   |               | alguno. Valor predeterminado: ``true``.                  |
+   +---------------+----------------------------------------------------------+
+   | ors           | Objeto que proporciona las opciones para generar         |
+   |               | isocronas, crear rutas y geocodificar puntos utilizando  |
+   |               | la *API* de OpenRouteService_.                           |
+   +---------------+----------------------------------------------------------+
+   | search        | Crea un cajetín para localizar centros por nombre. Por   |
+   |               | defecto, ``true``.                                       |
+   +---------------+----------------------------------------------------------+
+   | status        | Pasa un objeto de configuración del estado inicial       |
+   |               | codificado en base64. Su decodificación pasará a ser el  |
+   |               | valor inicial del atributo status_.                      |
+   +---------------+----------------------------------------------------------+
+   | unclusterZoom | Zoom a partir del cual las marcas de centro se mostrarán |
+   |               | siembre desagregadas. Por defecto, **14**.               |
+   +---------------+----------------------------------------------------------+
+
+   A su vez, el objeto *ors* puede tener estos atributos:
+
+   +---------------+----------------------------------------------------------+
+   | Opción        | Descripción                                              |
+   +===============+==========================================================+
+   | chunkProgress | Función para mostrar el progreso en operaciones lentas   |
+   |               | (cálculo de isocronas). Si ``true``, se usa el indicador |
+   |               | interno, y si ``false``, se prescinde de indicador.      |
+   |               | Por defecto, ``true``.                                   |
+   +---------------+----------------------------------------------------------+
+   | key           | Clave para el uso de la API REST de OpenRouteService_.   |
+   +---------------+----------------------------------------------------------+
+   | loading       | Tiene exactamente el mismo significado que la opción     |
+   |               | general. Su valor predeterminado es el que tenga la      |
+   |               | opción general.                                          |
+   +---------------+----------------------------------------------------------+
+   | routaPopup    | Función que construye el *popup* con información sobre   |
+   |               | la ruta generada. La función recibe como primer          |
+   |               | argumento la marca de origen, como segundo la marca del  |
+   |               | centro destino y como último argumento el objeto         |
+   |               | GeoJSON_ que representa la ruta. También admite los      |
+   |               | valores ``true`` si se desea usar la función             |
+   |               | predefinida, o false si no desea mostrar popup. Por      |
+   |               | defecto, ``true``.                                       |
+   +---------------+----------------------------------------------------------+
+
+.. note:: Si no se facilita centro (opción *center*), la aplicación intentará
+   averiguar las coordenadas del dispositivo para situar en ellas el centro.
 
 .. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
       los iconos png necesarios para `L.Icon.Default`_ en forma de `dataURI
@@ -466,3 +558,5 @@ Los datos son bastante elocuentes, pero algunos requieren explicación:
 .. _NodeJS: https://nodejs.org
 .. _L.Icon.Default: https://leafletjs.com/reference-1.5.0.html#icon-default
 .. _GeoJSON: https://geojson.org/
+.. _L.Map: https://leafletjs.com/reference-1.5.0.html#map
+.. _OpenRouteService: https://openrouteservice.org
