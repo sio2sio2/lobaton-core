@@ -657,6 +657,161 @@ Atributos
 Métodos
 =======
 
+.. _agregarCentros():
+
+``agregarCentros(datos)``
+   Método apropiado para agregar los centros asociados a una especialidad. Los
+   datos pueden ser el objeto GeoJSON_ o la dirección URL de la que descargar
+   dicho objeto. Por tanto, para cargar una nueva especialidad basta:
+
+   .. code-block:: js
+
+      g.agregarCentros("json/590107.json");
+
+   Ahora bien, de haber una especialidad previa, convendría antes eliminar todo
+   lo que se hubiera hecho anteriormente:
+
+   .. code-block:: js
+
+      g.on("dataloaded", e => {
+         console.log("Acabo de terminar de cargar los datos");
+      });
+
+      g.cluster.clearLayers();  // Eliminamos los anteriores centros.
+      g.Centro.reset();         // Eliminamos correcciones aplicadas.
+      g.setRuta(null);          // Eliminamos la ruta dibujada.
+      g.seleccionado = null;    // Deseleccionamos el centro.
+
+      // Cargamos unos nuevos datos.
+      g.agregarCentros("json/590107.json");
+
+   El fin de la carga de datos está asociado al evento dataloaded_.
+
+.. _calcularOrigen():
+
+``calcularOrigen()``
+   Obtiene la dirección postal del origen, si de este sólo se conocen las
+   coordenadas. La dirección se almacenará en ``g.origen.postal``. Es útil
+   cuando el origen se ha obtenido pinchando sobre el mapa. En caso de que el
+   origen se establezca escribiendo una dirección a través de la interfaz
+   virtual, lo conveniente sería:
+
+   - Utilizar `geoCodificar()`_ a partir de la dirección suministrada por el
+     usuario, para obtener los distintos candidatos.
+
+   - Permitir al usuario escoger uno de los candidatos, del cual se podrá
+     obtener tanto las coordenadas como la dirección postal.
+
+   - Usar `setOrigen()`_ para establecer el origen.
+
+   - Fijar la dirección postal, haciendo:
+
+     .. code-block:: js
+
+        g.origen.postal = direccion_postal_del_candidato;
+
+.. _geoCodificar():
+
+``geoCodificar(query)``
+   Obtiene la dirección postal de unas coordenadas, si se suministra un
+   punto; o un objeto GeoJSON_ con posibles ubicaciones si se suministra una
+   dirección. En el primer caso, el punto debe ser un objeto con los atributos
+   *lat* y *lng*; y en el segundo, una cadena.
+
+   La geocodificación tiene asociado el evento addressset_.
+
+.. _getIcon():
+
+``getIcon(estilo)``
+   Devuelve la clase de icono cuyo nombre se especifica en el argumento:
+
+   .. code-block:: js
+
+      const Boliche = g,getIcon("boliche");
+
+.. _getIsocronas():
+
+``getIsocronas(maciza)``
+   Si *maciza* es ``false`` (u otro valor evaluable a falso), devuelve un
+   *array* con las capas que se dibujan al crear las isocronas. De lo contrario,
+   devuelve un *array* con la definición en formato GeoJSON_ de las áreas que
+   encierran las isocronas. Lo primero es útil si se quiere manipular desde la
+   interfaz visual el dibujo de las isocronas (por ejemplo, asociando eventos de
+   ratón a tales capas). Lo segundo es útil si se desea aplicar el filtro lejos_.
+
+.. _setOrigen():
+
+``setOrigen(latlng)``
+   Establece el origen de los viajes en el punto pasado como argumento. La
+   obtención del origen tiene asociado el evento originset_.
+
+.. _getStatus(extra):
+
+``getStatus(extra)``
+   Devuelve una cadena que describe el estado actual del mapa (centro, zoom,
+   origen, isocronas, correcciones, filtros. etc.). La cadena es la
+   codificación en base64 del objeto que devuelve el atributo *status*. El
+   argumento extra deberá aportar las caracterísicas que depende de la interfaz
+   y sobreescribirá las opciones incluidas dentro del atrbuto visual de dicho
+   atributo.
+
+   El retorno proporcionado por este método es apto como valor de la opción
+   status que se puede pasar al crear el objeto_.
+
+.. _setIcon():
+
+``setIcon(estilo)``
+   Define un nuevo estilo para el icono de las marcas de centro. El parámetro es
+   una cadena con el nombre del nuevo estilo que puede ser:
+
+   * *boliche*, que se el predeterminado.
+   * *chupachups*, estilo alternativo al anterior, pero basado en *CSS* y mucho
+     más sencillo.
+   * *solicitud*, que es un estilo pensado para el futuro módulo de peticiones.
+
+   El método modifica el estilo para todas las marcas y luego las redibuja. Si
+   lo que se pretende es alterar el estilo de nuevas marcas que se añadan,
+   entonces debería alterarse la opción *icon* del objeto_:
+
+   .. code-block:: js
+
+      g.options.icon = "solicitud";
+
+   Y si se pretende alterar el estilo de una marca ya existente usar el meodo
+   homónimo para la marca en particular:
+
+   .. code-block:: js
+
+      // centro es una marca que representa un centro concreto.
+      const Icono = g.getIcon("solicitud");
+      centro.setIcon(new Icono());
+
+.. _setIsocronas():
+
+``setIsocronas(point)``
+   Genera las isocronas referidas al punto suministrado. Si no se suministra
+   ninguno, se entiende que el punto es el origen del viaje, y si ``nul``, se
+   eliminan las isocronas que pudieran haberse generado anterioremente. No puede
+   haber más de un juego de isocronas
+
+   La generación de las isocronas tiene asociado el evento isochroneset_.
+
+.. _setRuta():
+
+``setRuta(destino)``
+   Calcula una ruta entre el origen de viajes y el centro de destino
+   suministrado. Como argumento debe usarse la marca del centro. Si se
+   proporciona ``null``, la ruta anteriomente calculada y dibujada, se elimina.
+
+   La generación de la ruta tiene asociado el evento routeset_.
+
+.. _setStatus():
+
+``setStatus()``
+   Aplica la configuración proporcionada a través de la opción *status* al crear
+   el objeto. Sólo es necesario en caso de que se haya establecido la opción
+   *autostatus* a ``false``.
+
 Eventos
 =======
 
