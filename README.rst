@@ -583,7 +583,7 @@ Atributos
 
 
    Además, a los datos se incorpora un *getter*, que permite obtener el código
-   normalizado del centro:
+   normalizado\ [#]_ del centro:
 
    .. code-block:: js
 
@@ -881,6 +881,11 @@ capturar acciones que se realizan sobre el mapa:
    dispone del atributo *status* para saber si se aplicó una configuración
    guardada.
 
+Centro
+******
+Los centros son objetos de tipo `L.Marker,Mutable`_ con sus características
+propias y que define en concreto las siguientes correcciones y filtros:
+
 Correcciones
 ============
 Se pueden definir correcciones bien sobre la **oferta**, bien las
@@ -1132,7 +1137,13 @@ Hay definidos los siguientes filtros:
 Peticiones de destino
 *********************
 Para facilitar la creación de una lista de peticiones el objeto_ de acceso al
-mapa añade dos atributos:
+mapa añade algunos atributos y eventos:
+
+Objeto_ de manipulación del mapa
+================================
+
+Atributos
+---------
 
 .. _mode:
 
@@ -1163,15 +1174,39 @@ mapa añade dos atributos:
 
    añade al final de la lista de peticiones el centro con el código indicado.
 
-Además de estos atributos del objeto, los centros tiene dos características
-relacionadas con la petición de destinos: 
+Eventos
+-------
 
-* A sus datos se añade un atributo llamado *peticion* que indica en que posición
-  se pidió el centro. Si el centro no está pedido, vale 0, que es el valor
-  asignado en un comienzo a todos los centros.
+SEGUIR 3.2.10.2.
 
-* El estilo de icono "*solicitud*", distinto radicalmente al estilo «boliche», y
-  que sólo muestra como dato relevante el número de petición.
+Centro
+======
+Se define el estilo de icono "*solicitud*", distinto radicalmente al estilo
+"boliche", y que sólo muestra como dato relevante el número de **petición**.
+Además, su API se enriquece con:
+
+Atributos
+---------
+.. _peticion:
+
+``peticion``
+  Indica en que posición se ha pedido el centro. Si el centro no está pedido,
+  vale 0, que es el valor asignado en un comienzo a todos los centros.
+
+Filtros
+-------
+Para posibilitar el filtrado de centros según se soliciten, se añade el filtro:
+
+.. _solicitado:
+
+``solicitado``
+
+   Elimina los centros que se hayan solicitado, a menos que se incluya la opción
+   *inv* como ``true``, en cuyo caso tendrá el sentido contrario:
+
+   .. code-block:: js
+
+      g.Centro.filter("solicitado", {});  // Filtra los centros solicitados.
 
 Objeto solicitud
 ================
@@ -1188,15 +1223,129 @@ Atributos
    de los cuales es el carácter *C*; y en el caso de las localidad_\ es, como una
    cadena de 10 caracteres el último de los cuales es el carácter *L*.
 
+``BolicheIcono``
+   Devuelve el icono del *boliche*. Por tanto:
+
+   .. code-block:: js
+
+      g.getIcon("boliche") === g.solicitud.BolicheIcono  // true
+
+``SolicitudIcono``
+   Devuelve el icono de *solicitud*. Por tanto:
+
 Métodos
 -------
+.. warning:: Cuando un método acepta como argumento un centro o localidad,
+   admite el código numérico, el código de cadena y el código normalizado (el
+   que acaba en "*C*" o "*L*").
 
-Eventos
--------
+.. _add():
 
-Filtro
-------
+``add(centro|localidad)``
+   Añade el centro (o localidad) suministrado al final de la lista de
+   peticiones. El argumento puede ser el código (en cualquiera de sus tres
+   versiones) o el objeto marca que lo representa en el mapa.
 
+   Si la adición tiene éxito, devuelve el propio centro; en caso contrario (p.e.
+   porque el centro no existe o porque ya se encontraba en la lista, devuelve
+   ``null``).
+
+   .. code-block:: js
+
+      g.solicitud.add(11004866);
+      g.solicitud.add(21002100);
+      g.solicitud.add("23001111C");
+      g.solicitud.add(g.Centro.get(11700603));
+      g.solicitud.list;  // Devuelve ["11004866C", "21002100C", "23001111C", "11700603C"]
+
+.. _getCentro():
+
+``getCentro(pos)``
+   Devuelve la marca del centro (o localidad) que ocupa la posición *pos* en la
+   lista de peticiones. Devuelve ``null``, si la posición no existe:
+
+   .. code-block:: js
+
+      const centro = g.solicitud.getCentro(1);
+      centro.getData().id.cod;  // Devuelve 11004866
+
+.. _getPosition():
+
+``getPosition(centro|localidad)``
+   Devuelve la posición en la lista de peticiones del centro (o localidad)
+   suministrado. Si no se encuentra el centro, se devuelve **0**:
+
+   .. code-block:: js
+
+      g.solicitud.getPosition(11004866);  // Devuelve 1.
+
+.. _remove():
+
+``remove(centro|localidad)``
+   Elimina el centro solicitado de la lista de peticiones. Devuelve un *array* con
+   todos los centros afectados, esto es, un array que contiene el propio centro
+   y todos los posteriores:
+
+   .. code-block:: js
+
+      g.solicitud.remove(23001111);
+      g.solicitud.list;  // Devuelve ["11004866C", "21002100C", "11700603C"]
+
+.. _delete():
+
+``delete(pos, cuantos)``
+   Elimina de la listas tantos centros (o localidades) como se especifique en
+   cuántos a partir de la posición indicada. Si no se especifica cuántos, borra
+   hasta el final de la lista:
+
+   .. code-block:: js
+
+      g.solicitud.delete(2, 2);
+      g.solicitud.list;  // Devuelve ["11004866C", "11700603C"]
+
+   Devuelve un array con las marcas de los centros afectados por la eliminación,
+   o sea, los eliminados y todos los que iban por detrás en lista de peticiones.
+
+.. _insert():
+
+``insert(centro, pos)``
+   Agrega un centro (o localidad) en la posición indicada de la lista de
+   peticiones. Devuelve un *array* con las marcas de los centros afectados por
+   la eliminación:
+
+   .. code-block:: js
+
+      g.solicitud.insert(11004039, 3);
+
+.. _move():
+
+``move(pos1. pos2, cuantos)``
+   Mueve tantos centros como especifique cuantos desde la *pos1* a la posición
+   necesaria para que se inserten antes del que ocupa la *pos2*:
+
+   .. code-block:: js
+
+      g.solicitud.list;  // Devuelve ["11004866C", "21002100C", "23001111C", "11700603C"]
+      g.solicitud.move(1, 4, 2);
+      g.solicitud.list;  // Devuelve ["23001111C", "11004866C", "21002100C", "11700603C"]
+
+   Devuelve, como el resto de métodos, un *array* con todos los centros.
+
+.. note:: Todos los métodos que alteran la lista de peticiones, se encargan de
+   modificar el atributo peticion_ de los datos de cada centro que sufre cambios
+   en su número de petición. También alteran el valor de *status* para incorporar
+   la nueva lista.
+
+.. note:: La lista de peticiones se conserva, aunque se cambie de especialidad.
+   Los centros solicitados que en la nueva especialidad no existan, carecerán de
+   marca, por lo que internamente se almacenará para ellos no una marca, sino el
+   código correspondiente. Esto tiene repercusión en los valores de retorno de
+   aquellos métodos que devuelven las marcas de los centros afectados por un
+   cambio en la lista, ya que consecuentemente no devolverán las marcas de estos
+   centros inexistentes, sino sus códigos normalizados.
+
+Localidad
+=========
 
 
 .. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
@@ -1211,6 +1360,9 @@ Filtro
    puede haber centros que no se encuentren sobre el mapa porque hayan ido
    desaparecido al filtrarse. Para obtener todos los centros necesitaría
    recurrir a ``g.Centro.store``.
+
+.. [#] Los códigos normalizados son cadenas de ocho dígitos y una letra "C" para
+   centros y nuevo dígitos y una letra "L" para localidades.
 
 .. _Leaflet: https://leafletjs.com
 .. _leaflet.mutatismutandis: https://github.com/sio2sio2/leaflet.mutatismutandis
