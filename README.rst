@@ -412,7 +412,7 @@ Los datos son bastante elocuentes, pero algunos requieren explicación:
 
 - La "*o*" en los colectivos representa el orden de prelación de cada colectivo.
   Cuanto menor sea, mayor será la prelación. El dato es útil para la corrección
-  adjofer_:
+  adjref_:
 
 - Las características de cada enseñanza son las siguientes:
 
@@ -596,6 +596,8 @@ Atributos
    Almacena la información general del GeoJSON_ de Datos_ (o sea, la primera
    *feature*).
 
+.. _status:
+
 ``status``
    Devuelve el estado actual del mapa (origen, filtros correcciones, etc.). El
    estado adicional que aporte la interfaz visual se encontrará dentro de su
@@ -604,6 +606,8 @@ Atributos
    recoge caractarísticas del estado de la interfaz ajenas al mapa, mantendrá
    sus valores iniciales. Para más información eche un ojo al método
    `getStatus()`_.
+
+.. _seleccionado:
 
 ``seleccionado``
    Establece un centro como el seleccionado, lo que se notará visualmente
@@ -617,6 +621,8 @@ Atributos
 
    La selección de un centro tiene asociado el evento markerselect_.
 
+.. _origen:
+
 ``origen``
    Marca que representa el origen del viaje. Puede no existir, si no se ha
    definido ningún origen. El establecimniento del origen está asociado al
@@ -625,8 +631,12 @@ Atributos
    La asignación de un valor a g.origen.postal tiene asociado el evento geocode_
    aplicable a la propia marca de origen.
 
+.. _contador:
+
 ``contador``
    Número de consultas realizadas al servicio de OpenRouteService_.
+
+.. _direccion:
 
 ``direccion``
    Almacena el resultado de una geocodificación. Si se realizó la consulta de la
@@ -634,10 +644,14 @@ Atributos
    obtener las coordenadas de una dirección postal, el objeto GeoJSON_ con todas
    las localizaciones posibles.
 
+.. _isocronas:
+
 ``isocronas``
    Array con las marcas que representan las áreas de los anillos que se forman
    entre isocronas. Tales marcas tienen asociadas mediante su atributo *feature*
    el objeto GeoJSON_ que define el área.
+
+.. _ruta:
 
 ``ruta``
    Objeto que contiene dos atributos: *ruta.destino*, que es la marca de centro
