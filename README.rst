@@ -412,7 +412,7 @@ Los datos son bastante elocuentes, pero algunos requieren explicación:
 
 - La "*o*" en los colectivos representa el orden de prelación de cada colectivo.
   Cuanto menor sea, mayor será la prelación. El dato es útil para la corrección
-  `Adjudicatario de referencia`_.
+  adjofer_:
 
 - Las características de cada enseñanza son las siguientes:
 
@@ -623,16 +623,7 @@ Atributos
    evento originset_.
 
    La asignación de un valor a g.origen.postal tiene asociado el evento geocode_
-   aplicable a la propia marca de origen:
-
-   .. code-block:: js
-
-      g.on("originset", e => {
-         if(!e.newval) return;
-         e.newval.once("geocode", x => {
-            console.log(`Pues sí, estoy en '${x.newval}'`);
-         });
-      });
+   aplicable a la propia marca de origen.
 
 ``contador``
    Número de consultas realizadas al servicio de OpenRouteService_.
@@ -745,7 +736,7 @@ Métodos
    Establece el origen de los viajes en el punto pasado como argumento. La
    obtención del origen tiene asociado el evento originset_.
 
-.. _getStatus(extra):
+.. _getStatus():
 
 ``getStatus(extra)``
    Devuelve una cadena que describe el estado actual del mapa (centro, zoom,
@@ -862,10 +853,14 @@ capturar acciones que se realizan sobre el mapa:
    método `setIsocronas()`_. ``e.newval`` proporcionará el nuevo valor del
    atributo *isocronasi*.
 
+.. _routeset:
+
 ``routeset``
    Se desencadena al terminar de generar la ruta entre el origen y el centro
    definido como destino mediante el método `setRuta()`_. ``e.newval``
    proporcionará el nuevo calor del atributo ruta.
+
+.. _statuschange:
 
 ``statuschange``
    Se desencadena siempre que se lleva a cabo una acción que provoca un cambio
@@ -876,6 +871,8 @@ capturar acciones que se realizan sobre el mapa:
 
       g.on("statuschange", e => console.log(`El culpable soy yo, ${e.attr}`));
 
+.. _statusset:
+
 ``statusset``
    Se desencadena al acabar de aplicar el estado inicial del mapa. El evento
    dispone del atributo *status* para saber si se aplicó una configuración
@@ -883,8 +880,27 @@ capturar acciones que se realizan sobre el mapa:
 
 Centro
 ******
-Los centros son objetos de tipo `L.Marker,Mutable`_ con sus características
-propias y que define en concreto las siguientes correcciones y filtros:
+Los centros son objetos de las características propias del tipo
+`L.Marker.Mutable`_ que definen:
+
+
+* Si el centro es el origen de los viajes tiene definido un evento adicional:
+
+  .. _geocode:
+
+  ``geocode``
+      Se desencadena cuando se asigna valor al atributo *postal* de la marca:
+
+      g.on("originset", e => {
+         if(!e.newval) return;
+         e.newval.once("geocode", f => {
+            console.log(`Pues sí, estoy en '${f.newval}'`);
+         });
+      });
+
+
+en concreto las
+siguientes correcciones y filtros:
 
 Correcciones
 ============
@@ -1037,9 +1053,9 @@ Adjudicaciones
 
       Centro.correct("vt", {});
 
-.. _adjfer:
+.. _adjref:
 
-``adjofer``
+``adjref``
    Elimina las adjudicaciones hechas a adjudicatarios con mayor prioridad que el
    adjudicatario que se proporciona como referencia. Para establecer este
    referente se proporcionan tres opciones:
