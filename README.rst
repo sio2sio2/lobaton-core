@@ -448,7 +448,7 @@ Los datos son bastante elocuentes, pero algunos requieren explicación:
 
 Objeto
 ******
-El paquete facilita, mediante cr función ``lobaton``, la creación de un objeto
+El paquete facilita, mediante la función ``lobaton``, la creación de un objeto
 para el acceso a la manipulación del mapa:
 
 Creación
@@ -1137,7 +1137,9 @@ Hay definidos los siguientes filtros:
 Peticiones de destino
 *********************
 Para facilitar la creación de una lista de peticiones el objeto_ de acceso al
-mapa añade algunos atributos y eventos:
+mapa y las marcas de centro añaden algunos atributos y eventos; y se crea un
+nuevo tipo de marcas mutables (Localidad_) y un nuevo tipo de `objeto
+solicitud`_.
 
 Objeto_ de manipulación del mapa
 ================================
@@ -1157,10 +1159,13 @@ Atributos
      requestclick_. En este segundo modo, el evento también se lanza cuando se
      hace click sobre la marca de una localidad_.
 
-   .. note:: Esto es cierto siempre que la opción light del objeto sea
+   .. note:: Esto es cierto siempre que la opción *light* del objeto sea
       verdadera. Si no es el caso, no hay ninguna acción asociada al click sobre
       el centro.
    
+   .. note:: Pulsar sobre un centro en modo "solicitud", no provoca ningún
+      cambio en la lista de peticiones: sólo desencadena el método requestclick_.
+
 .. _solicitud:
 
 ``solicitud``
@@ -1174,28 +1179,112 @@ Atributos
 
    añade al final de la lista de peticiones el centro con el código indicado.
 
+``Localidad``
+   Tipo de Marca mutable, análoga a Centro_, para representar localidades:
+
+   .. code-block:: js
+
+      g.Localidad.store.length;  // Cantidad de localidad cargadas.
+
+   Más adelante volveremos a tratar Localidad_.
+
 Eventos
 -------
 
-SEGUIR 3.2.10.2.
+.. _modeset:
+
+``modeset``
+   Se lanza cuando cambia el modo de trabajo. Como en otros tipos de eventos, el
+   objeto evento guarda en el atributo *oldval* el modo viejo y en *newval* el
+   nuevo:
+
+   .. code-block:: js
+
+      g.on("modeset", e => {
+         if(e.oldval !== e.newval) {
+            console.log(`Ha pasado de ${e.oldval} a ${e.newval}`);
+         }
+      });
+   
+.. _requestclick:
+
+``requestclick``
+   Se lanza cada vez que se pulsa un centro o localidad en el
+   modo "solicitud" (y la opción *light* sea ``true``). El evento añade el
+   atributo *marker* que identifica la marca sobre la que se ha pulsado:
+
+   .. code-block:: js
+
+      g.on("requestclick", e => {
+         const data = e.marker.getData(),
+               nombre = data.nom?data.nom:data.id.nom;
+
+         console.log("Parece que quiere pedir", nombre);
+      });
+
+.. _requestset:
+
+``requestset``
+   Se lanza cada vez que un centro modifica su atributo de petición. El evento
+   dispone de los atributos *oldval* y *newval* para conocer los valores de las
+   peticiones; y *marker* para conocer cuál fue el centro que modificó el
+   atributo:
+
+   .. code-block:: js
+
+      g.on("requestset", e => {
+         const data = e.marker.getData(),
+          nom = data.id?data.id.nom:data.nom;
+
+         if(e.newval === 0) {
+            console.log(`Deja de pedirse '${nom}'`);
+         }
+         else {
+            console.log(`Se pide '${nom}' en la petición ${e.newval}`);
+         }
+      });
+
+.. _requestchange:
+
+``requestchange``
+   Se lanza cada vez que se cambia la lista de peticiones. El evento dispone de
+   un atributo markers que es un array que contiene todas las marcas de los
+   centros y localidades que han modificado su valor.
+
+   .. note:: Advierta que cuando se provoca un cambio en la lista, este evento
+      se desencadena una vez y el anterior lo hace tantas veces como cuentros
+      hayan modificado su petición.
+
+.. _locloaded:
+
+``locloaded``
+   Se lanza cuando acaban de cargarse las localidades de su archivo GeoJSON_
+   correspondiente:
+
+   .. code-block:: js
+
+      g.on("locloaded", e => {
+         console.log(`Las ${g.Localidad.store.length} localidades ya están disponibles`);
+      });
 
 Centro
 ======
 Se define el estilo de icono "*solicitud*", distinto radicalmente al estilo
 "boliche", y que sólo muestra como dato relevante el número de **petición**.
-Además, su API se enriquece con:
 
-Atributos
----------
 .. _peticion:
 
-``peticion``
-  Indica en que posición se ha pedido el centro. Si el centro no está pedido,
-  vale 0, que es el valor asignado en un comienzo a todos los centros.
+Además, los datos incorporan uno llamado *petición*, que indica en que posición
+se ha pedido el centro. Si el centro no está pedido, vale 0, que es el valor
+asignado en un comienzo a todos los centros:
 
-Filtros
--------
-Para posibilitar el filtrado de centros según se soliciten, se añade el filtro:
+.. code-block:: js
+
+   const centro = g.Centro.get(21002100);
+   centro.getData().peticion > 0  // true, si el centro se ha solicitado.
+
+Para posibilitar el **filtrado** de centros según se soliciten, se añade el
+filtro:
 
 .. _solicitado:
 
@@ -1346,6 +1435,114 @@ Métodos
 
 Localidad
 =========
+Como además de pedirse centros pueden pedirse localidades, el objeto incorpora
+también este tipo de marca mutable cuya única opción de dibujo depende de si la
+localidad se pidió o no. De modo análogo a Centro_ incorpora un método:
+
+``get(codigo)``
+   Obtiene la marca correspondiente a partir de su código, en cualquiera de las
+   tres versiones posibles:
+
+   .. code-block:: js
+
+      jerez = g.Localidad.get(110200014);
+      jerez = g.Localidad.get("110200014");
+      jerez = g.Localidad.get("110200014L");
+
+Además, también como se hace con Centro, se incorporta un *getter* a los datos
+que proporciona el código normalizado:
+
+.. code-block:: js
+
+   jerez.getData().cod;     // Devuelve 110200014
+   jerez.getData().codigo;  // Devuelve 110200014L
+
+Estas localidades se cargan en la propia capa cluster a partir de un archivo
+GeoJSON_ con el siguiente aspecto:
+
+.. code-block:: json
+
+   {
+      "type": "FeatureCollection",
+      "features": [
+         {
+            "type": "Feature",
+            "geometry": {
+               "type": "Point",
+               "coordinates": [-6.116667, 36.7]
+            },
+            "properties": {
+               "nom": "Jerez de la Frontera",
+               "cod": "110200014"
+            }
+         },
+         {
+            "type": "Feature",
+            "geometry": {
+               "type": "Point",
+               "coordinates": [-5.983333, 37.383333]
+            },
+            "properties": {
+               "nom": "Sevilla",
+               "cod": "410910002"
+            }
+         }
+      ]
+   }
+
+Como se observa, los únicos datos de interés de cada localidad son sus
+coordenadas, su nombre y su código.
+
+Las localidades sólo tiene habilitados dos **filtros**:
+
+.. _invisible:
+
+``invisible``
+   Filtra todas las localidades indiscriminadamente:
+
+   .. code-block:: js
+   
+      g.Localidad.filter("invisiable", {});
+
+   Este filtro es el responsable de que no se vea ningún centro al abrir el
+   mapa, ya que está aplicado por defecto,
+
+``solicitado``
+   Filtro análogo al homónimo solicitado_ de Centro_, por lo que filtra las
+   localidades que hayan sido solicitadas.
+
+Recetas
+=======
+Cambiar icono al solicitar centro
+---------------------------------
+.. code-block:: js
+
+   g.on("requestset", e => {
+      e.marker.refresh();
+      if(e.marker instanceof e.target.Centro) {
+         // Solo si pasa de pedido a no pedido
+         // o viceversa debe cambiarse el icono.
+         if(!!e.newval !== !!e.oldval) {
+            const tipo = e.newval === 0?"BolicheIcono":"SolicitudIcono",
+                  Icono = e.target.solicitud[tipo];
+
+            Icono.onready(() => e.marker.setIcon(new Icono()));
+         }
+      }
+   });
+
+Ocultar centros filtrados
+-------------------------
+.. code-block:: js
+
+   g.Centro.filter("solicitado", {});
+
+Mostrar localidades sin bloquear la interfaz
+--------------------------------------------
+.. code-block:: js
+
+   g.Centro.unfilter("invisible");
+   g.Centro.invoke("refresh", g.progressBar);
 
 
 .. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
