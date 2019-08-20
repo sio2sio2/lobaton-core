@@ -28,6 +28,8 @@ function confBabel(env) {
       }
   }
 }
+
+
 // Configuración adicional para el sabor bundle,
 // o sea, el que contiene todas las dependencias.
 function confBundle() {
@@ -41,7 +43,6 @@ function confBundle() {
                   "leaflet-search/dist/leaflet-search.min.css",
                   "leaflet/dist/images/marker-shadow.png",
                   "leaflet/dist/images/marker-icon-2x.png",
-                  // "leaflet-search/dist/leaflet-search.mobile.min.css",
                   "./src/index.js"]
       }
    }
@@ -52,11 +53,25 @@ function confBundle() {
 function confNoDeps() {
    return {
       externals: {
-         leaflet: "L",
-         "leaflet-defaulticon-compatibility": "L.Compatibility",
-         turf: "turf",
-         Fuse: "Fuse",
-         "leaflet.markercluster": "L",
+         leaflet: {
+            root: "L",
+            amd: "leaflet",
+            commonjs: "leaflet",
+            commonjs2: "leaflet"
+         },
+         "leaflet-defaulticon-compatibility": "compatibility",
+         turf: {
+            root: "turf",
+            amd: "turf",
+            commonjs: "turf",
+            commonjs2: "turf"
+         },
+         "leaflet.markercluster": {
+            root: "L",
+            amd: "leaflet.markercluster",
+            commonjs: "leaflet.markercluster",
+            commonjs2: "leaflet.markercluster"
+         },
          Fuse: {
             root: "Fuse",
             amd: "Fuse",
@@ -94,15 +109,7 @@ function confDev(filename) {
          new webpack.SourceMapDevToolPlugin({
             filename: `${filename}.js.map`
          })
-      ]
-   }
-}
-
-
-//Configuración adicional para depuración
-//(Se requiere copiar el ejemplo en el servidor)
-function confDebug() {
-   return {
+      ],
       devServer: {
          contentBase: path.resolve(__dirname, "examples"),
          publicPath: "/dist/",
@@ -112,12 +119,13 @@ function confDebug() {
    }
 }
 
+
 module.exports = env => {
    let mode, filename;
 
    switch(env.output) {
       case "debug":
-      case "src":
+      case "srcdebug":
          mode = "development";
          break;
       default:
@@ -131,6 +139,9 @@ module.exports = env => {
          break;
       case "src":
          filename = "[name]-src";
+         break
+      case "debug":
+         filename = "[name]-debug";
          break
       default:
          filename = `[name].${env.output}`;
@@ -156,17 +167,34 @@ module.exports = env => {
       module: {
          rules: [
             {
-               test: /\.(css|sass)$/,
+               test: /\.(css|sass)$/i,
                oneOf: [
                   {
                      include: path.resolve(__dirname, "src"),
                      use: [MiniCssExtractPlugin.loader,
                            `css-loader${env.mode === "production"?"":"?sourceMap=true"}`,
+                           {
+                              loader: "postcss-loader",
+                              options: {
+                                 plugins: [
+                                    require("autoprefixer"),
+                                    require("cssnano")({preset: "default"})
+                                 ]
+                              }
+                           },
                            `sass-loader${env.mode === "production"?"":"?sourceMap=true"}`]
                   },
                   {
                      use: [MiniCssExtractPlugin.loader,
-                           "css-loader"]
+                           "css-loader",
+                           {
+                              loader: "postcss-loader",
+                              options: {
+                                 plugins: [
+                                    require("cssnano")({preset: "default"})
+                                 ]
+                              }
+                           }]
                   }
                ]
             },
@@ -179,7 +207,7 @@ module.exports = env => {
       plugins: [
          new webpack.ProvidePlugin({
             L: "leaflet",
-            "L.compatibility": "leaflet-defaulticon-compatibility",
+            "compatibility": "leaflet-defaulticon-compatibility",
             turf: "app/utils/turf.js",
             Fuse: "fuse.js",
             "L.Control.Search": "leaflet-search",
@@ -197,7 +225,7 @@ module.exports = env => {
    return merge.smart(
       common,
       mode === "production"?confBabel(env):confDev(filename),
-      env.output === "bundle"?confBundle():confNoDeps(),
-      env.output === "debug"?confDebug():null
+      env.output === "src"?{optimization: {minimize: false}}:null,
+      env.output === "bundle"?confBundle():confNoDeps()
    )
 }
