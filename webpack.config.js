@@ -2,7 +2,8 @@ const webpack = require("webpack"),
       merge = require("webpack-merge"),
       path = require("path"),
       MiniCssExtractPlugin = require("mini-css-extract-plugin"),
-      name = require("./package.json").name.split("/").pop();
+      pack = require("./package.json"),
+      name = pack.name.split("/").pop();
 
 
 // Configuración para Babel
@@ -59,7 +60,6 @@ function confNoDeps() {
             commonjs: "leaflet",
             commonjs2: "leaflet"
          },
-         "leaflet-defaulticon-compatibility": "compatibility",
          turf: {
             root: "turf",
             amd: "turf",
@@ -121,15 +121,15 @@ function confDev(filename) {
 
 
 module.exports = env => {
-   let mode, filename;
+   let filename;
 
    switch(env.output) {
       case "debug":
       case "srcdebug":
-         mode = "development";
+         env.mode = "development";
          break;
       default:
-         mode = "production";
+         env.mode = "production";
    }
 
    switch(env.output) {
@@ -140,7 +140,7 @@ module.exports = env => {
       case "src":
          filename = "[name]-src";
          break
-      case "debug":
+      case "srcdebug":
          filename = "[name]-debug";
          break
       default:
@@ -148,7 +148,7 @@ module.exports = env => {
    }
 
    const common = {
-      mode: mode,
+      mode: env.mode,
       entry: {
          [name]: "./src/index.js"
       },
@@ -205,9 +205,15 @@ module.exports = env => {
          ]
       },
       plugins: [
+         new webpack.DefinePlugin({
+            "process.env": {
+               output: JSON.stringify(env.output),
+               version: JSON.stringify(pack.version),
+               mode: JSON.stringify(env.mode)
+            }
+         }),
          new webpack.ProvidePlugin({
             L: "leaflet",
-            "compatibility": "leaflet-defaulticon-compatibility",
             turf: "app/utils/turf.js",
             Fuse: "fuse.js",
             "L.Control.Search": "leaflet-search",
@@ -224,7 +230,7 @@ module.exports = env => {
 
    return merge.smart(
       common,
-      mode === "production"?confBabel(env):confDev(filename),
+      env.mode === "production"?confBabel(env):confDev(filename),
       env.output === "src"?{optimization: {minimize: false}}:null,
       env.output === "bundle"?confBundle():confNoDeps()
    )
