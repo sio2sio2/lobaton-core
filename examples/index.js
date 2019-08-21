@@ -7,7 +7,7 @@ window.onload = function() {
 const Interfaz = (function() {
 
    function Interfaz() {
-      this.g = lobaton({
+      this.g = Lo.lobaton({
          center: [37.45, -4.5],
          pathLoc: "json/localidades.json",
          unclusterZoom: 13,
