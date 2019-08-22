@@ -3,5 +3,4 @@ if(process.env.output === "bundle") {
 }
 
 import mapAdjOfer from "./adjofer/index.js";
-//export default mapAdjOfer;
 export {mapAdjOfer as lobaton}

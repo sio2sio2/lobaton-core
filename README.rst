@@ -41,12 +41,12 @@ Para el desarrollo de la interfaz con NodeJS_ basta con instalar el paquete:
    $ npm install git+https://github.com/sio2sio2/lobaton-core
 
 e importar la función que crear el objeto de manipulación del mapa en el código
-propio\ [#]_:
+propio:
 
 .. code-block:: js
 
    import "@lobaton/core/dist/core.bundle.css";
-   import lobaton from "@lobaton/core/dist/core.bundle.js";
+   import * as Lo from "@lobaton/core";
 
 Si nuestra intención es usar la librería directamente en el **navegador**,
 disponemos de tres sabores distintos:
@@ -79,27 +79,27 @@ disponemos de tres sabores distintos:
      <link rel="stylesheet" href="https://sio2sio2.github.io/lobaton-core/dist/core.css">
      <script src="https://sio2sio2.github.io/lobaton-core/dist/core.js"></script>
 
-* ``core-src.js``, que es la versión de desarrollo de la librería y es
-  sólo útil para labores de depuración con el navegador, aunque para tal labor
-  es aconsejable utilizar NodeJS_. Requiere cargar las mismas dependencias y
-  sólo difiere en cómo cargar el propio **Lobatón**:
-
-  .. code-block:: html
-
-     <!-- Las mismas dependencias expuestas arriba -->
-
-     <!-- Lobatón Core -->
-     <link rel="stylesheet" href="https://sio2sio2.github.io/lobaton-core/dist/core-src.css">
-     <script src="https://sio2sio2.github.io/lobaton-core/dist/core-src.js"></script>
-
-* ``core.bundle.js``, que incluye todas las dependencias y es la versión
-  que se aconseja usar, si el desarrollo de la interfaz no se hace con NodeJS_:
+* ``core.bundle.js``, que incluye todas las dependencias y es más aconsejable de
+  usar (excluida la opción de desarrollar con NodeJS_):
    
   .. code-block:: html
 
      <!-- Lobatón Core + Dependencias -->
      <link rel="stylesheet" href="https://sio2sio2.github.io/lobaton-core/dist/core.bundle.css">
      <script src="https://sio2sio2.github.io/lobaton-core/dist/core.bundle.js"></script>
+
+* ``core-debug.js``, que es la versión de desarrollo de la librería y es
+  sólo útil para labores de depuración con el navegador, aunque para tal labor
+  es aconsejable utilizar NodeJS_. Requiere cargar las mismas dependencias y
+  sólo difiere en cómo cargar el propio **Lobatón**:
+
+  .. code-block:: html
+
+     <!-- Las mismas dependencias expuestas para core.js -->
+
+     <!-- Lobatón Core -->
+     <link rel="stylesheet" href="https://sio2sio2.github.io/lobaton-core/dist/core-debug.css">
+     <script src="https://sio2sio2.github.io/lobaton-core/dist/core-debug.js"></script>
 
 Datos
 *****
@@ -1561,15 +1561,6 @@ Mostrar localidades sin bloquear la interfaz
 
    g.Centro.unfilter("invisible");
    g.Centro.invoke("refresh", g.progressBar);
-
-
-.. [#] El sabor *bundle* contienen todas las dependencias necesarias, incluidos
-   los iconos png necesarios para `L.Icon.Default`_ en forma de `dataURI
-   <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs>`_.
-   Hay otra versión (``@lobaton/core/dist/core.js``) sin dependencias pero
-   obliga a declararlas al construir el paquete. Si su intención es usar esta
-   versión sin dependencias, échele un ojo al ``webpack.config.js`` que trae el
-   paquete.
 
 .. [#] Lo cual no significa que devuelve todas las marcas de centro, ya que
    puede haber centros que no se encuentren sobre el mapa porque hayan ido

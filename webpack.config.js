@@ -148,7 +148,7 @@ module.exports = env => {
          filename: `${filename}.js`,
          libraryTarget: "umd",
          umdNamedDefine: true,
-         library: "Lo",
+         library: "Lo"
       },
       module: {
          rules: [

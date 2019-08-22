@@ -7532,7 +7532,7 @@ __webpack_require__.r(__webpack_exports__);
 if(false) {}
 
 
-//export default mapAdjOfer;
+//export default { lobaton: mapAdjOfer }
 
 
 
