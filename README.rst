@@ -69,15 +69,6 @@ disponemos de tres sabores distintos:
      <link rel="stylesheet" href="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.min.css">
      <script src="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.min.js"></script>
 
-     <!-- Plugin: Búsqueda -->
-     <link rel="stylesheet" 
-           href="https://unpkg.com/leaflet-search@2.9.8/dist/leaflet-search.min.css">
-     <link rel="alternate stylesheet"
-           href="https://unpkg.com/leaflet-search@2.9.8/dist/leaflet-search.mobile.min.css">
-     <script src="https://unpkg.com/leaflet-search@2.9.8/dist/leaflet-search.src.js"></script>
-     <!-- Fuse.js: Fuzzy-search -->
-     <script src="https://unpkg.com/fuse.js"></script>
-
      <!-- Plugin: mutatismutandis -->
      <script src="https://unpkg.com/leaflet.mutatismutandis"></script>
 
@@ -501,9 +492,6 @@ Creación
    | ors           | Objeto que proporciona las opciones para generar         |
    |               | isocronas, crear rutas y geocodificar puntos utilizando  |
    |               | la *API* de OpenRouteService_.                           |
-   +---------------+----------------------------------------------------------+
-   | search        | Crea un cajetín para localizar centros por nombre. Por   |
-   |               | defecto, ``true``.                                       |
    +---------------+----------------------------------------------------------+
    | status        | Pasa un objeto de configuración del estado inicial       |
    |               | codificado en base64. Su decodificación pasará a ser el  |

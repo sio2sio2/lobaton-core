@@ -10,7 +10,7 @@ import ORS from "app/ors";
 function load() {
 
    const options = {},
-         nooptions = ["light", "ors", "id", "search", "icon",
+         nooptions = ["light", "ors", "id", "icon",
                       "unclusterZoom", "centeredZoom", "loading"];
 
    for(const name in this.options) {
@@ -51,8 +51,6 @@ function load() {
          if(marker instanceof this.Centro) this.cluster.removeLayer(marker);
       }
    }
-
-   if(this.options.search) this.map.addControl(iface.searchBar.call(this));  // Issue #51
 
    // Issue #27
    crearAttrEvent.call(this, "origen", "originset");

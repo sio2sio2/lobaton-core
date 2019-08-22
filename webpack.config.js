@@ -41,7 +41,6 @@ function confBundle() {
                   "leaflet-contextmenu/dist/leaflet.contextmenu.css",
                   "leaflet.markercluster/dist/MarkerCluster.css",
                   "leaflet.markercluster/dist/MarkerCluster.Default.css",
-                  "leaflet-search/dist/leaflet-search.min.css",
                   "leaflet/dist/images/marker-shadow.png",
                   "leaflet/dist/images/marker-icon-2x.png",
                   "./src/index.js"]
@@ -71,18 +70,6 @@ function confNoDeps() {
             amd: "leaflet.markercluster",
             commonjs: "leaflet.markercluster",
             commonjs2: "leaflet.markercluster"
-         },
-         Fuse: {
-            root: "Fuse",
-            amd: "Fuse",
-            commonjs: "Fuse",
-            commonjs2: "Fuse"
-         },
-         "leaflet-search": {
-            root: ["L", "Control", "Search"],
-            amd: "leaflet-search",
-            commonjs: "leaflet-search",
-            commonjs2: "leaflet-search"
          },
          "leaflet-contextmenu": {
             root: ["L", "Map", "ContextMenu"],
@@ -214,8 +201,6 @@ module.exports = env => {
          new webpack.ProvidePlugin({
             L: "leaflet",
             turf: "app/utils/turf.js",
-            Fuse: "fuse.js",
-            "L.Control.Search": "leaflet-search",
             "L.MarkerClusterGroup": ["leaflet.markercluster", "MarkerClusterGroup"],
             "L.Map.ContextMenu": "leaflet-contextmenu",
             "L.Marker.Mutable": "leaflet.mutatismutandis"

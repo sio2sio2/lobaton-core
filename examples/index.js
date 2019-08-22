@@ -26,6 +26,8 @@ const Interfaz = (function() {
       // Agrega los datos de la especialidad de informática.
       this.g.agregarCentros("json/590107.json");
 
+      this.g.map.addControl(Lo.search.bar(this.g));
+
       // A efectos de depuración.
       this.g.on("markerselect", e => {
          const centro = e.newval;
