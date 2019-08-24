@@ -97,7 +97,7 @@ Isocronas.prototype.create = async function(point) {
                                   this.options);
 
       if(this.ORS.ors.loading) this.ORS.ors.loading("isocronas");
-      L.utils.load({
+      L.Mutable.utils.load({
          url: this.url + "/" + params.profile,
          headers: { Authorization: this.ORS.ors.key },
          contentType: "application/json; charset=UTF-8",

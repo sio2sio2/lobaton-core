@@ -1,8 +1,8 @@
 import {getPath} from "app/utils/misc.js";
 import svg from "./images/localidad.svg";
 
-const converter = new L.utils.Converter(["peticion"])
-                             .define("peticion");
+const converter = new L.Mutable.utils.Converter(["peticion"])
+                                     .define("peticion");
 
 function updater(o) {
    if(o.peticion === undefined) return;
@@ -27,7 +27,7 @@ function updater(o) {
    this.querySelector("path").setAttribute("fill", color);
 }
 
-export default L.utils.createMutableIconClass("localidad", {
+export default L.Mutable.utils.createMutableIconClass("localidad", {
    iconSize: [26, 40],
    iconAnchor: [13, 39.43],
    url: getPath(svg),

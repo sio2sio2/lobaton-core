@@ -6,7 +6,7 @@
 	else if(typeof exports === 'object')
 		exports["Lo"] = factory(require("leaflet"), require("leaflet-contextmenu"), require("leaflet.markercluster"), require("leaflet.mutatismutandisx"));
 	else
-		root["Lo"] = factory(root["L"], root["L"]["Map"]["ContextMenu"], root["L"], root["L"]["Marker"]["Mutable"]);
+		root["Lo"] = factory(root["L"], root["L"]["Map"]["ContextMenu"], root["L"], root["L"]["Mutable"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_leaflet__, __WEBPACK_EXTERNAL_MODULE_leaflet_contextmenu__, __WEBPACK_EXTERNAL_MODULE_leaflet_markercluster__, __WEBPACK_EXTERNAL_MODULE_leaflet_mutatismutandis__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -5871,7 +5871,7 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var _status_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./status.js */ "./src/adjofer/status.js");
+/* WEBPACK VAR INJECTION */(function(L, __webpack_provided_L_dot_Mutable) {/* harmony import */ var _status_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./status.js */ "./src/adjofer/status.js");
 /* harmony import */ var app_interface_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/interface/index.js */ "./src/interface/index.js");
 /* harmony import */ var _load_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./load.js */ "./src/adjofer/load.js");
 /* harmony import */ var app_centro_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/centro/index.js */ "./src/centro/index.js");
@@ -6018,7 +6018,7 @@ const MapAdjOfer = L.Evented.extend({
       Icono.onready(() => {
          if(typeof datos === "string") {  // Es una URL.
             if(this.options.loading) this.options.loading();
-            L.utils.load({
+            __webpack_provided_L_dot_Mutable.utils.load({
                url: datos,
                callback: xhr => {
                   const datos = JSON.parse(xhr.responseText);
@@ -6161,7 +6161,7 @@ const MapAdjOfer = L.Evented.extend({
    return new MapAdjOfer(opts);
 });
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -6174,7 +6174,7 @@ const MapAdjOfer = L.Evented.extend({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L, __webpack_provided_L_dot_MarkerClusterGroup) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* WEBPACK VAR INJECTION */(function(L, __webpack_provided_L_dot_MarkerClusterGroup, __webpack_provided_L_dot_Mutable) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
 /* harmony import */ var app_interface_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/interface/index.js */ "./src/interface/index.js");
 /* harmony import */ var app_ors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/ors */ "./src/ors/index.js");
 
@@ -6221,7 +6221,7 @@ function load() {
       // Al llegar a este nivel de zoom se ven todas las marcas.
       disableClusteringAtZoom: this.options.unclusterZoom,
       spiderfyOnMaxZoom: false,
-      iconCreateFunction: L.utils.noFilteredIconCluster,
+      iconCreateFunction: __webpack_provided_L_dot_Mutable.utils.noFilteredIconCluster,
    });
 
    // Como clearLayers, pero no se carga las localidades.
@@ -6446,7 +6446,7 @@ function load() {
 
 /* harmony default export */ __webpack_exports__["default"] = (load);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! leaflet.markercluster */ "leaflet.markercluster")["MarkerClusterGroup"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! leaflet.markercluster */ "leaflet.markercluster")["MarkerClusterGroup"], __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -7118,7 +7118,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "converter", function() { return converter; });
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Mutable) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "converter", function() { return converter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "url", function() { return url; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updater", function() { return updater; });
 /* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
@@ -7128,11 +7128,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Definición del icono de centro
-const converter = new L.utils.Converter(["numvac", "tipo", "numofer", "bil", "ofervar", "sel"])
-                             .define("tipo", "mod.dif", t => t || "normal")
-                             .define("numvac", "adj", a => a.length)
-                             .define("ofervar", "mod.cam", c => c || 0)
-                             .define("sel");
+const converter = new __webpack_provided_L_dot_Mutable.utils.Converter(["numvac", "tipo", "numofer", "bil", "ofervar", "sel"])
+                                     .define("tipo", "mod.dif", t => t || "normal")
+                                     .define("numvac", "adj", a => a.length)
+                                     .define("ofervar", "mod.cam", c => c || 0)
+                                     .define("sel");
 
 // Para calcular la cantidad de oferta se considera
 // 1 una enseñanza deseable y 1/3 una que no lo es.
@@ -7258,7 +7258,7 @@ const url = Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__["getPath"])(_i
 
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -7271,13 +7271,13 @@ const url = Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__["getPath"])(_i
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "converter", function() { return converter; });
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Mutable) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "converter", function() { return converter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "html", function() { return html; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updater", function() { return updater; });
 // Definición de los iconos CSS (comparten todo menos el estilo)
-const converter = new L.utils.Converter(["numvac", "tipo"])
-                             .define("tipo", "mod.dif", t => t || "normal")
-                             .define("numvac", "adj", a => a.length);
+const converter = new __webpack_provided_L_dot_Mutable.utils.Converter(["numvac", "tipo"])
+                                     .define("tipo", "mod.dif", t => t || "normal")
+                                     .define("numvac", "adj", a => a.length);
 
 function updater(o) {
    const content = this.querySelector(".content");
@@ -7290,7 +7290,7 @@ const html = '<div class="content"><span></span></div><div class="arrow"></div>'
 
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -7325,7 +7325,7 @@ module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5v
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var _css_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./css.js */ "./src/centro/icons/css.js");
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Mutable) {/* harmony import */ var _css_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./css.js */ "./src/centro/icons/css.js");
 /* harmony import */ var _boliche_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./boliche.js */ "./src/centro/icons/boliche.js");
 /* harmony import */ var _solicitud_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./solicitud.js */ "./src/centro/icons/solicitud.js");
 /* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
@@ -7344,7 +7344,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-   piolin: L.utils.createMutableIconClass("piolin", {
+   piolin: __webpack_provided_L_dot_Mutable.utils.createMutableIconClass("piolin", {
       iconSize: null,
       iconAnchor: [12.5, 34],
       // css: getPath("css/piolin.css"),  // Incluimos las reglas en el CSS general
@@ -7352,7 +7352,7 @@ __webpack_require__.r(__webpack_exports__);
       converter: _css_js__WEBPACK_IMPORTED_MODULE_0__["converter"],
       updater: _css_js__WEBPACK_IMPORTED_MODULE_0__["updater"]
    }),
-   chupachups: L.utils.createMutableIconClass("chupachups", {
+   chupachups: __webpack_provided_L_dot_Mutable.utils.createMutableIconClass("chupachups", {
       iconSize: [25, 34],
       iconAnchor: [12.5, 34],
       // css: getPath("css/chupachups.css"),
@@ -7360,14 +7360,14 @@ __webpack_require__.r(__webpack_exports__);
       converter: _css_js__WEBPACK_IMPORTED_MODULE_0__["converter"],
       updater: _css_js__WEBPACK_IMPORTED_MODULE_0__["updater"]
    }),
-   solicitud: L.utils.createMutableIconClass("solicitud", {
+   solicitud: __webpack_provided_L_dot_Mutable.utils.createMutableIconClass("solicitud", {
       iconSize: [40, 40],
       iconAnchor: [19.556, 35.69],
       url: _solicitud_js__WEBPACK_IMPORTED_MODULE_2__["url"],
       converter: _solicitud_js__WEBPACK_IMPORTED_MODULE_2__["converter"],
       updater: _solicitud_js__WEBPACK_IMPORTED_MODULE_2__["updater"]
    }),
-   boliche: L.utils.createMutableIconClass("boliche", {
+   boliche: __webpack_provided_L_dot_Mutable.utils.createMutableIconClass("boliche", {
       iconSize: [40, 40],
       iconAnchor: [19.556, 35.69],
       url: _boliche_js__WEBPACK_IMPORTED_MODULE_1__["url"],
@@ -7376,7 +7376,7 @@ __webpack_require__.r(__webpack_exports__);
    })
 });
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -7411,7 +7411,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "converter", function() { return converter; });
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Mutable) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "converter", function() { return converter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "url", function() { return url; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updater", function() { return updater; });
 /* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
@@ -7421,9 +7421,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Definición del icono de solicitud
-const converter = new L.utils.Converter(["peticion", "sel"])
-                             .define("peticion")
-                             .define("sel");
+const converter = new __webpack_provided_L_dot_Mutable.utils.Converter(["peticion", "sel"])
+                                     .define("peticion")
+                                     .define("sel");
 
 function updater(o) {
    var text = this.querySelector("text");
@@ -7452,7 +7452,7 @@ const url = Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__["getPath"])(_i
 
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -7465,7 +7465,7 @@ const url = Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__["getPath"])(_i
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Marker_dot_Mutable) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* WEBPACK VAR INJECTION */(function(L) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
 /* harmony import */ var _corrections_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./corrections.js */ "./src/centro/corrections.js");
 /* harmony import */ var _filters_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filters.js */ "./src/centro/filters.js");
 /* harmony import */ var _icons_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./icons/index.js */ "./src/centro/icons/index.js");
@@ -7487,7 +7487,7 @@ function create() {
    * @memberof MapAdjOfer.prototype
    * @type {Marker}
    */
-   this.Centro = __webpack_provided_L_dot_Marker_dot_Mutable.extend({
+   this.Centro = L.Marker.Mutable.extend({
       statics: {
          /**
           * Obtiene la marca de un centro a partir de su código.
@@ -7513,7 +7513,7 @@ function create() {
 
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
 
 /***/ }),
 
@@ -7532,7 +7532,6 @@ __webpack_require__.r(__webpack_exports__);
 if(false) {}
 
 
-//export default { lobaton: mapAdjOfer }
 
 
 
@@ -7893,14 +7892,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Mutable) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
 /* harmony import */ var _images_localidad_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./images/localidad.svg */ "./src/localidad/images/localidad.svg");
 /* harmony import */ var _images_localidad_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_images_localidad_svg__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
-const converter = new L.utils.Converter(["peticion"])
-                             .define("peticion");
+const converter = new __webpack_provided_L_dot_Mutable.utils.Converter(["peticion"])
+                                     .define("peticion");
 
 function updater(o) {
    if(o.peticion === undefined) return;
@@ -7925,7 +7924,7 @@ function updater(o) {
    this.querySelector("path").setAttribute("fill", color);
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (L.utils.createMutableIconClass("localidad", {
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_provided_L_dot_Mutable.utils.createMutableIconClass("localidad", {
    iconSize: [26, 40],
    iconAnchor: [13, 39.43],
    url: Object(app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__["getPath"])(_images_localidad_svg__WEBPACK_IMPORTED_MODULE_1___default.a),
@@ -7933,7 +7932,7 @@ function updater(o) {
    updater: updater
 }));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -7957,7 +7956,7 @@ module.exports = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJo
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L, __webpack_provided_L_dot_Marker_dot_Mutable) {/* harmony import */ var _icon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon.js */ "./src/localidad/icon.js");
+/* WEBPACK VAR INJECTION */(function(L, __webpack_provided_L_dot_Mutable) {/* harmony import */ var _icon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon.js */ "./src/localidad/icon.js");
 
 
 // Issue #79, #83
@@ -8002,7 +8001,7 @@ function create() {
     * @memberof MadAdjOfer.prototype
     * @type {Marker}
     */
-   this.Localidad = __webpack_provided_L_dot_Marker_dot_Mutable.extend({
+   this.Localidad = L.Marker.Mutable.extend({
       statics: {
          get: function(cod) {
             if(typeof cod === "string" && cod.endsWith("L")) cod = cod.slice(0, -1);
@@ -8057,7 +8056,7 @@ function create() {
 
 
    Icono.onready(() => {
-      L.utils.load({
+      __webpack_provided_L_dot_Mutable.utils.load({
          url: this.options.pathLoc,
          callback: xhr => {
             const data = JSON.parse(xhr.responseText);
@@ -8088,7 +8087,7 @@ function create() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Mutable) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
 
 
 // Issue #46
@@ -8139,7 +8138,7 @@ Geocode.prototype.query = async function(data) {
          params = Object.assign({"point.lon": data.lng, "point.lat": data.lat}, this.options);
       }
 
-      L.utils.load({
+      __webpack_provided_L_dot_Mutable.utils.load({
          url: furl,
          method: "GET",
          params: params,
@@ -8179,7 +8178,7 @@ function obtenerCoordenadas(data, search) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Geocode);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -8254,7 +8253,7 @@ function ORS(adjofer) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L, turf) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* WEBPACK VAR INJECTION */(function(L, __webpack_provided_L_dot_Mutable, turf) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./src/ors/utils.js");
 
 
@@ -8355,7 +8354,7 @@ Isocronas.prototype.create = async function(point) {
                                   this.options);
 
       if(this.ORS.ors.loading) this.ORS.ors.loading("isocronas");
-      L.utils.load({
+      __webpack_provided_L_dot_Mutable.utils.load({
          url: this.url + "/" + params.profile,
          headers: { Authorization: this.ORS.ors.key },
          contentType: "application/json; charset=UTF-8",
@@ -8516,7 +8515,7 @@ Isocronas.prototype.get = function(maciza) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Isocronas);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! app/utils/turf.js */ "./src/utils/turf.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis"), __webpack_require__(/*! app/utils/turf.js */ "./src/utils/turf.js")))
 
 /***/ }),
 
@@ -8529,7 +8528,7 @@ Isocronas.prototype.get = function(maciza) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* WEBPACK VAR INJECTION */(function(L, __webpack_provided_L_dot_Mutable) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./src/ors/utils.js");
 
 
@@ -8604,7 +8603,7 @@ Ruta.prototype.create = async function(destino) {
       delete params.profile;
       
       if(this.ORS.ors.loading) this.ORS.ors.loading("ruta");
-      L.utils.load({
+      __webpack_provided_L_dot_Mutable.utils.load({
          url: furl,
          method: "GET",
          params: params,
@@ -8670,7 +8669,7 @@ Ruta.prototype.remove = function() {
 
 /* harmony default export */ __webpack_exports__["default"] = (Ruta);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet"), __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
@@ -8711,7 +8710,7 @@ function mismoPunto(x, y) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Marker_dot_Mutable, L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
+/* WEBPACK VAR INJECTION */(function(L) {/* harmony import */ var app_utils_misc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/utils/misc.js */ "./src/utils/misc.js");
 // Issue #79
 // Módulo para gestionar las solicitudes de centro.
 
@@ -8768,7 +8767,7 @@ function Solicitud(adjofer) {
       if(!e.target.status.list) return;
       for(let i=0; i<e.target.status.list.length; i++) {
          const cod = e.target.status.list[i];
-         if(cod instanceof __webpack_provided_L_dot_Marker_dot_Mutable) continue;
+         if(cod instanceof L.Marker.Mutable) continue;
 
          const tipo = cod.endsWith("L")?"Localidad":"Centro",
                entidad = e.target[tipo].get(cod);
@@ -8885,7 +8884,7 @@ function actualiza(pos1, pos2) {
    for(let i=pos1 - 1; i < pos2; i++) {
       const centro = this.store[i];
 
-      if(centro instanceof __webpack_provided_L_dot_Marker_dot_Mutable) {
+      if(centro instanceof L.Marker.Mutable) {
          const pos = centro.getData().peticion;
          centro.changeData({peticion: i+1});
          this.adjofer.fire("requestset", {
@@ -8913,7 +8912,7 @@ Solicitud.prototype.delete = function(pos, cuantos) {
    if(cuantos === undefined || cuantos > restantes) cuantos = restantes;
    const eliminados = this.store.splice(pos-1, cuantos);
    for(const centro of eliminados) {
-      if(!(centro instanceof __webpack_provided_L_dot_Marker_dot_Mutable)) continue;
+      if(!(centro instanceof L.Marker.Mutable)) continue;
 
       const pos = centro.getData().peticion;
       centro.changeData({peticion: 0});
@@ -9001,7 +9000,7 @@ Solicitud.prototype.move = function(pos1, pos2, cuantos) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Solicitud);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis"), __webpack_require__(/*! leaflet */ "leaflet")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
 
 /***/ }),
 
@@ -9014,7 +9013,7 @@ Solicitud.prototype.move = function(pos1, pos2, cuantos) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Marker_dot_Mutable) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addDescriptor", function() { return addDescriptor; });
+/* WEBPACK VAR INJECTION */(function(L) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addDescriptor", function() { return addDescriptor; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "crearAttrEvent", function() { return crearAttrEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HSLtoRGB", function() { return HSLtoRGB; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rgb2hex", function() { return rgb2hex; });
@@ -9111,7 +9110,7 @@ function rgb2hex(rgb) {
 
 
 function normalizeCodigo(centro) {
-   if(centro instanceof __webpack_provided_L_dot_Marker_dot_Mutable) {
+   if(centro instanceof L.Marker.Mutable) {
       return centro.getData().codigo;
    }
 
@@ -9192,7 +9191,7 @@ function getPath(resource, script) {
 
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet */ "leaflet")))
 
 /***/ }),
 
@@ -9255,9 +9254,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_leaflet_markercluster__;
 /***/ }),
 
 /***/ "leaflet.mutatismutandis":
-/*!**************************************************************************************************************************************************************!*\
-  !*** external {"root":["L","Marker","Mutable"],"amd":"leaflet.mutatismutandis","commonjs":"leaflet.mutatismutandisx","commonjs2":"leaflet.mutatismutandis"} ***!
-  \**************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************!*\
+  !*** external {"root":["L","Mutable"],"amd":"leaflet.mutatismutandis","commonjs":"leaflet.mutatismutandisx","commonjs2":"leaflet.mutatismutandis"} ***!
+  \*****************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

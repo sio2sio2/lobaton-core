@@ -97,7 +97,7 @@ function create() {
 
 
    Icono.onready(() => {
-      L.utils.load({
+      L.Mutable.utils.load({
          url: this.options.pathLoc,
          callback: xhr => {
             const data = JSON.parse(xhr.responseText);

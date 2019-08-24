@@ -78,7 +78,7 @@ function confNoDeps() {
             commonjs2: "leaflet-contextmenu"
          },
          "leaflet.mutatismutandis": {
-            root: ["L", "Marker", "Mutable"],
+            root: ["L", "Mutable"],
             amd: "leaflet.mutatismutandis",
             commonjs: "leaflet.mutatismutandisx",
             commonjs2: "leaflet.mutatismutandis"
@@ -203,7 +203,7 @@ module.exports = env => {
             turf: "app/utils/turf.js",
             "L.MarkerClusterGroup": ["leaflet.markercluster", "MarkerClusterGroup"],
             "L.Map.ContextMenu": "leaflet-contextmenu",
-            "L.Marker.Mutable": "leaflet.mutatismutandis"
+            "L.Mutable": "leaflet.mutatismutandis"
          }),
          new MiniCssExtractPlugin({
             filename: `${filename}.css`,

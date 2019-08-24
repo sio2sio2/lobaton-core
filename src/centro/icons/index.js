@@ -9,7 +9,7 @@ import "./sass/piolin.sass";
 import "./sass/chupachups.sass";
 
 export default {
-   piolin: L.utils.createMutableIconClass("piolin", {
+   piolin: L.Mutable.utils.createMutableIconClass("piolin", {
       iconSize: null,
       iconAnchor: [12.5, 34],
       // css: getPath("css/piolin.css"),  // Incluimos las reglas en el CSS general
@@ -17,7 +17,7 @@ export default {
       converter: css.converter,
       updater: css.updater
    }),
-   chupachups: L.utils.createMutableIconClass("chupachups", {
+   chupachups: L.Mutable.utils.createMutableIconClass("chupachups", {
       iconSize: [25, 34],
       iconAnchor: [12.5, 34],
       // css: getPath("css/chupachups.css"),
@@ -25,14 +25,14 @@ export default {
       converter: css.converter,
       updater: css.updater
    }),
-   solicitud: L.utils.createMutableIconClass("solicitud", {
+   solicitud: L.Mutable.utils.createMutableIconClass("solicitud", {
       iconSize: [40, 40],
       iconAnchor: [19.556, 35.69],
       url: solicitud.url,
       converter: solicitud.converter,
       updater: solicitud.updater
    }),
-   boliche: L.utils.createMutableIconClass("boliche", {
+   boliche: L.Mutable.utils.createMutableIconClass("boliche", {
       iconSize: [40, 40],
       iconAnchor: [19.556, 35.69],
       url: boliche.url,

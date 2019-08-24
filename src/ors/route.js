@@ -71,7 +71,7 @@ Ruta.prototype.create = async function(destino) {
       delete params.profile;
       
       if(this.ORS.ors.loading) this.ORS.ors.loading("ruta");
-      L.utils.load({
+      L.Mutable.utils.load({
          url: furl,
          method: "GET",
          params: params,

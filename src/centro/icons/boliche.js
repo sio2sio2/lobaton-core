@@ -2,11 +2,11 @@ import {getPath, rgb2hex, HSLtoRGB} from "app/utils/misc.js";
 import svg from "./images/boliche.svg";
 
 // Definición del icono de centro
-const converter = new L.utils.Converter(["numvac", "tipo", "numofer", "bil", "ofervar", "sel"])
-                             .define("tipo", "mod.dif", t => t || "normal")
-                             .define("numvac", "adj", a => a.length)
-                             .define("ofervar", "mod.cam", c => c || 0)
-                             .define("sel");
+const converter = new L.Mutable.utils.Converter(["numvac", "tipo", "numofer", "bil", "ofervar", "sel"])
+                                     .define("tipo", "mod.dif", t => t || "normal")
+                                     .define("numvac", "adj", a => a.length)
+                                     .define("ofervar", "mod.cam", c => c || 0)
+                                     .define("sel");
 
 // Para calcular la cantidad de oferta se considera
 // 1 una enseñanza deseable y 1/3 una que no lo es.

@@ -42,7 +42,7 @@ function load() {
       // Al llegar a este nivel de zoom se ven todas las marcas.
       disableClusteringAtZoom: this.options.unclusterZoom,
       spiderfyOnMaxZoom: false,
-      iconCreateFunction: L.utils.noFilteredIconCluster,
+      iconCreateFunction: L.Mutable.utils.noFilteredIconCluster,
    });
 
    // Como clearLayers, pero no se carga las localidades.

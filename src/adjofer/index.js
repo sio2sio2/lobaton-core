@@ -139,7 +139,7 @@ const MapAdjOfer = L.Evented.extend({
       Icono.onready(() => {
          if(typeof datos === "string") {  // Es una URL.
             if(this.options.loading) this.options.loading();
-            L.utils.load({
+            L.Mutable.utils.load({
                url: datos,
                callback: xhr => {
                   const datos = JSON.parse(xhr.responseText);

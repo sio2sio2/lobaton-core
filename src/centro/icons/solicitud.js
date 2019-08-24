@@ -2,9 +2,9 @@ import {getPath} from "app/utils/misc.js";
 import svg from "./images/solicitud.svg";
 
 // Definición del icono de solicitud
-const converter = new L.utils.Converter(["peticion", "sel"])
-                             .define("peticion")
-                             .define("sel");
+const converter = new L.Mutable.utils.Converter(["peticion", "sel"])
+                                     .define("peticion")
+                                     .define("sel");
 
 function updater(o) {
    var text = this.querySelector("text");

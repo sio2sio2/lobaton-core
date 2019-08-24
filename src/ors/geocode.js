@@ -48,7 +48,7 @@ Geocode.prototype.query = async function(data) {
          params = Object.assign({"point.lon": data.lng, "point.lat": data.lat}, this.options);
       }
 
-      L.utils.load({
+      L.Mutable.utils.load({
          url: furl,
          method: "GET",
          params: params,
