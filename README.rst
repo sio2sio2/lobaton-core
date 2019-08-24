@@ -70,7 +70,7 @@ disponemos de tres sabores distintos:
      <script src="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.min.js"></script>
 
      <!-- Plugin: mutatismutandis -->
-     <script src="https://unpkg.com/leaflet.mutatismutandis"></script>
+     <script src="https://unpkg.com/leaflet.mutatismutandis/dist/leaflet.mutatismutandis.js"></script>
 
      <!-- turf (polígonos): para isocronas -->
      <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
