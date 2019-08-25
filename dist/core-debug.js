@@ -6702,48 +6702,13 @@ function get(extra) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/**
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_L_dot_Mutable) {/**
  * Registra las correcciones disponibles.
  * @this {MapAdjOfer} El objeto que implemnta el mapa
  * @private
  */
 /* harmony default export */ __webpack_exports__["default"] = (function() {
    const self = this;
-
-   // Función para determinar si unas condiciones implican otras.
-   // Es aplicable a opciones que consisten en un array con valores.
-   // Por ejemplo: {bil: ["Inglés", "Francés"]} que implica que se
-   // eliminan enseñanzas que cumplan con alguno de los valores. En
-   // este caso, bilingües de Inglés o de Francés.
-   // Sin tener en cuenta inv, si los elementos antiguos incluyen a
-   // todos los nuevos, la corrección antigua incluye a la nueva.
-   // Por tanto, debe devolverse verdadero cuando
-   // (N=nuevos; y=interseccion; o=unión; A=antiguos):
-   //
-   // NyA = N
-   // !AyN = Vacio
-   // !Ny!A = !A
-   // Ao!N = Todos
-   function applyConInv(attr, todos, oldopts, newopts) {
-      if(!oldopts.inv && newopts.inv) {  //A, !N
-         const union = [].concat(oldopts[attr]);
-         for(const p of newopts[attr]) {
-            if(oldopts[attr].indexOf(p) === -1) union.push(p);
-         }
-         return union.length === todos.length;
-      }
-      else {
-         const inters = [];
-         for(const p of newopts[attr]) {
-            if(oldopts[attr].indexOf(p) !== -1) inters.push(p);
-         }
-         if(newopts.inv) return inters.length === oldopts[attr].length;  //!N, !A
-         else {
-            if(oldopts.inv) return inters.length === 0;  // !A, N
-            else return inters.length === newopts[attr].length; // N, A
-         }
-      }
-   }
 
    // El GeoJSON con carácter informativo incluye el primer año
    // de su extinción una enseñanza ya desaparecida. Debemos
@@ -6766,10 +6731,8 @@ __webpack_require__.r(__webpack_exports__);
       func: function(idx, oferta, opts) {
          return !!(opts.inv ^ (opts.bil.indexOf(oferta[idx].idi) !== -1));
       },
-      apply: function(oldopts, newopts) {
-         // Las enseñanzas que no son bilingües, tiene idi a null.
-         return applyConInv("bil", ["Inglés", "Francés", "Alemán", null], oldopts, newopts);
-      },
+      // Las enseñanzas que no son bilingües, tiene idi a null.
+      apply: (o, n) => __webpack_provided_L_dot_Mutable.utils.compareOpts(o, n, ["Inglés", "Francés", "Alemán", null]),
       // Sólo son pertinentes los puestos no bilingües (o sí, si inv=true).
       chain: [{
          corr: "adjpue",
@@ -6819,9 +6782,7 @@ __webpack_require__.r(__webpack_exports__);
       func: function(idx, adj, opts) {
          return !!(opts.inv ^ (opts.puesto.indexOf(adj[idx].pue) !== -1));
       },
-      apply: function(oldopts, newopts) {
-         return applyConInv("puesto", Object.keys(self.general.puestos), oldopts, newopts);
-      }
+      apply: (o, n) => __webpack_provided_L_dot_Mutable.utils.compareOpts(o, n, Object.keys(self.general.puestos))
    });
 
    // Elimina las enseñanzas suministradas
@@ -6831,9 +6792,7 @@ __webpack_require__.r(__webpack_exports__);
       func: function(idx, oferta, opts) {
          return !!(opts.inv ^ (opts.ens.indexOf(oferta[idx].ens) !== -1));
       },
-      apply: function(oldopts, newopts) {
-         return applyConInv("ens", Object.keys(self.general.ens), oldopts, newopts);
-      },
+      apply: (o, n) => __webpack_provided_L_dot_Mutable.utils.compareOpts(o, n, Object.keys(self.general.ens)),
       chain: [{
          corr: "adjpue",
          // Si alguna de las enseñanzas eliminadas, es la única
@@ -7010,6 +6969,7 @@ __webpack_require__.r(__webpack_exports__);
 
 });
 
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! leaflet.mutatismutandis */ "leaflet.mutatismutandis")))
 
 /***/ }),
 
